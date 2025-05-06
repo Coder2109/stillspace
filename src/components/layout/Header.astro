@@ -1,5 +1,6 @@
 ---
-import Search from "@/components/Search.astro";
+import ToDoButton from "@/components/ToDoButton.astro";
+import AboutButton from "@/components/AboutButton.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 import { siteConfig, menuLinks } from "@/site.config";
 import { Icon } from "astro-icon/components";
@@ -53,6 +54,8 @@ import { Icon } from "astro-icon/components";
 
 			<div class="ml-auto w-fit">
 				<div id="buttons-panel" class="top-4 md:top-8 -ml-[4.5rem] flex space-x-2">
+					<ToDoButton />
+					<AboutButton />
 					<ThemeToggle />
 				</div>
 			</div>	
