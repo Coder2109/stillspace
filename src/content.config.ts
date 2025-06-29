@@ -21,6 +21,7 @@ const post = defineCollection({
 				})
 				.optional(),
 			draft: z.boolean().default(false),
+			pinned: z.boolean().default(false),
 			ogImage: z.string().optional(),
 			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
 			publishDate: z

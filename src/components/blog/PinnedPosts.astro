@@ -1,0 +1,13 @@
+---
+import { getPinnedPosts } from "@/data/post";
+import PinnedPost from "@/components/blog/PinnedPost.astro";
+
+const pinnedPosts = await getPinnedPosts();
+console.log(pinnedPosts.length, "pinned posts");
+---
+
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 mt-16 mb-8">
+    { pinnedPosts.map((post) => (
+        <PinnedPost post={post} />
+    ))}
+</div>

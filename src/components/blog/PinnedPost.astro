@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+const isPreview = true
+
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
+	post: CollectionEntry<"post">;
+	withDesc?: boolean;
+};
+
+const {  post  } = Astro.props;
+---
+
+<article
+	class:list={[isPreview && "inline-grid w-full rounded-lg bg-color-75 px-4 md:px-8 py-2 md:py-4"]}
+	data-pagefind-body={isPreview ? false : true}
+>
+	<div
+		class="prose prose-citrus max-w-none [&>p:last-of-type]:mb-0"
+		class:list={{
+			"line-clamp-4": isPreview,
+			"[&>blockquote]:line-clamp-4 [&>blockquote]:mb-0": isPreview,
+			"[&>blockquote:not(:first-of-type)]:hidden": isPreview,
+			// "[&>p]:line-clamp-4": isPreview,
+			// "[&>p:not(:first-of-type)]:hidden": isPreview,
+		}} 
+	>
+        <h4 class="text-base">
+            <a class="citrus-link" href={`/posts/${post.id}/`}>
+                { post.data.title }
+            </a>
+        </h4>
+
+        <p class="mt-0.5 line-clamp-2">{post.data.description}</p>
+
+    </div>
+</article>
