@@ -66,11 +66,11 @@ Anger often covers up **other emotions** like fear, sadness, or feeling unheard.
 
 You’re allowed to ask for help managing anger. In fact, it shows strength and self-awareness.
 
-**Talk to someone:**
+**Talk to someone you trust:**  
 - A trusted friend or family member  
 - A teacher or counselor (schools will usually have a counselor) 
 
-**Professional help:**
+**Professional support:**  
 - Speak to your GP or doctor
 - Ask about anger management resources or therapy  
 - Cognitive Behavioral Therapy (CBT) is very effective for managing intense emotions
@@ -80,6 +80,7 @@ You’re allowed to ask for help managing anger. In fact, it shows strength and 
 - **[Shout](https://giveusashout.org)** (text support): Text **"SHOUT"** to **85258**  
 - **[Samaritans](https://www.samaritans.org)** (any age): 116 123 — confidential, 24/7 
 - **[The Mix](https://www.themix.org.uk)** (under 25s): 0808 808 4994 
+- **[YoungMinds](https://www.youngminds.org.uk)**
 
 Even if it seems hard or you don't like the idea of opening yourself up, there are people who are there for you and will try their best to help. Getting it out or talking it through can sometimes be the best thing you can do to help, even if it is scary at first.
 

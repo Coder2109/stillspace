@@ -62,11 +62,11 @@ You don’t have to wait until you hit breaking point to take action. Small, kin
 
 If feeling low has lasted more than two weeks, or it’s affecting your ability to function, it might be time to ask for help. This isn’t a sign of failure — it’s a step toward healing.
 
-**Talk to someone:**
+**Talk to someone you trust:**  
 - A trusted friend or family member  
 - A teacher or counselor (schools will usually have a counselor) 
 
-**Professional help:**  
+**Professional support:**  
 - Speak to your GP or doctor
 - Therapy can help you understand why you’re feeling this way, and how to move forward  
 - CBT, talking therapy, or even short-term check-ins can make a difference
@@ -76,6 +76,7 @@ If feeling low has lasted more than two weeks, or it’s affecting your ability 
 - **[Shout](https://giveusashout.org)** (text support): Text **"SHOUT"** to **85258**  
 - **[Samaritans](https://www.samaritans.org)** (any age): 116 123 — confidential, 24/7 
 - **[The Mix](https://www.themix.org.uk)** (under 25s): 0808 808 4994 
+- **[YoungMinds](https://www.youngminds.org.uk)**
 
 Even if it seems hard or you don't like the idea of opening yourself up, there are people who are there for you and will try their best to help. Getting it out or talking it through can sometimes be the best thing you can do to help, even if it is scary at first.
 

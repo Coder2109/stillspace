@@ -70,11 +70,12 @@ Grief is not something you need to “get over” to be okay. But if it starts t
 - School counsellors, therapists, or grief support workers  
 - Therapy can help make sense of loss and offer ways to live with it
 
-**Specialist support organisations:**  
+**Helplines:**
 - **[Child Bereavement UK](https://www.childbereavementuk.org)**  (help with bereavement)
 - **[Winston’s Wish](https://www.winstonswish.org)**  (help with bereavement)
 - **[Cruse Bereavement Support](https://www.cruse.org.uk)**  (help with bereavement)
 - **[The Mix](https://www.themix.org.uk)** (under 25s): 0808 808 4994 
+- **[YoungMinds](https://www.youngminds.org.uk)**
 
 ---
 

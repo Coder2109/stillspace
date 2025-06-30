@@ -22,12 +22,11 @@ const { as: Tag = "div", post, withDesc = false } = Astro.props;
 		</>
 	) : (
 		<>
-			<Tag class="citrus-link font-medium text-accent-base mt-2.5">
+			<Tag class="citrus-link font-medium text-accent-base mt-0">
 				<a data-astro-prefetch href={`/learnspace/${post.id}/`}>
 					{post.data.title}
 				</a>
 			</Tag>
-			<p class="mt-0.5 line-clamp-2">{post.data.description}</p>
 		</>
 	)}
 </div>

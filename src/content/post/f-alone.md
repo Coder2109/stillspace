@@ -59,11 +59,11 @@ Feeling misunderstood doesn’t mean you’re broken — it often means your nee
 
 ## When & Where to Get Support
 
-**Talk to someone:**
+**Talk to someone you trust:**  
 - A trusted friend or family member  
 - A teacher or counselor (schools will usually have a counselor) 
 
-**Professional help:**
+**Professional support:**  
 - Speak to your GP or doctor 
 - Counselor or therapist 
 - Mental health services
@@ -73,6 +73,7 @@ Feeling misunderstood doesn’t mean you’re broken — it often means your nee
 - **[Shout](https://giveusashout.org)** (text support): Text **"SHOUT"** to **85258**  
 - **[Samaritans](https://www.samaritans.org)** (any age): 116 123 — confidential, 24/7 
 - **[The Mix](https://www.themix.org.uk)** (under 25s): 0808 808 4994 
+- **[YoungMinds](https://www.youngminds.org.uk)**
 
 Even if it seems hard or you don't like the idea of opening yourself up, there are people who are there for you and will try their best to help. Getting it out or talking it through can sometimes be the best thing you can do to help, even if it is scary at first.
 
