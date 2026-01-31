@@ -21,7 +21,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
   <div class="relative max-w-4xl mx-auto p-4">
     <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-xl overflow-hidden">
       <!-- Book Content -->
-      <div class="bg-amber-50 dark:bg-gray-900 m-6 rounded-lg p-8 md:p-10 min-h-[60vh] max-h-[70vh] overflow-y-auto font-serif leading-relaxed">
+      <div class="bg-amber-50 dark:bg-gray-900 m-6 rounded-lg p-8 md:p-10 h-[550px] overflow-y-auto font-serif leading-relaxed">
         {chapters.length > 0 ? (
           chapters.map((chapter, index) => (
             <div 
