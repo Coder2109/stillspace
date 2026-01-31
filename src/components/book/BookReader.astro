@@ -1,0 +1,615 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  chapters: CollectionEntry<'book'>[];
+}
+
+const { chapters } = Astro.props;
+
+// Sort chapters by order
+const sortedChapters = chapters.sort((a, b) => a.data.order - b.data.order);
+
+// Render all chapter content
+const renderedChapters = await Promise.all(
+  sortedChapters.map(async (chapter) => {
+    const { Content } = await chapter.render();
+    return {
+      ...chapter,
+      Content
+    };
+  })
+);
+---
+
+<div class="book-reader-wrapper">
+  <div id="book-reader" class="book-reader-container">
+    <!-- Book Container -->
+    <div class="book-container">
+      <!-- Book Pages -->
+      <div class="book-pages">
+        <div class="book-page" id="book-page">
+          <div class="page-content">
+            <div id="chapter-content" class="chapter-content prose prose-lg dark:prose-invert">
+              {renderedChapters.map((chapter, index) => (
+                <div 
+                  class="chapter-section" 
+                  data-chapter={index}
+                  style={index === 0 ? '' : 'display: none;'}
+                >
+                  <chapter.Content />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Navigation Controls -->
+      <div class="book-navigation">
+        <button id="prev-chapter" class="nav-btn prev-btn" disabled>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Previous
+        </button>
+        
+        <div class="chapter-info">
+          <span id="current-chapter-title" class="chapter-title">
+            Chapter 1: {sortedChapters[0]?.data.title}
+          </span>
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+        
+        <button id="next-chapter" class="nav-btn next-btn">
+          Next
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Table of Contents Toggle -->
+    <button id="toc-toggle" class="toc-toggle" title="Table of Contents">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+    
+    <!-- Table of Contents -->
+    <div id="table-of-contents" class="table-of-contents hidden">
+      <div class="toc-header">
+        <h3>Table of Contents</h3>
+        <button id="close-toc" class="close-btn">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="toc-list">
+        {sortedChapters.map((chapter, index) => (
+          <button 
+            class={`toc-item ${index === 0 ? 'active' : ''}`}
+            data-chapter={index}
+          >
+            <div class="toc-chapter-number">Chapter {chapter.data.order}</div>
+            <div class="toc-chapter-title">{chapter.data.title}</div>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chapter Data -->
+<script type="application/json" id="chapter-data">
+  {JSON.stringify(sortedChapters.map((chapter, index) => ({
+    index,
+    title: chapter.data.title,
+    order: chapter.data.order,
+    description: chapter.data.description
+  })))}
+</script>
+
+<style>
+  .book-reader-wrapper {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 0;
+  }
+  
+  .book-reader-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+  }
+  
+  .book-container {
+    background: linear-gradient(135deg, #f8f6f3 0%, #f0ebe3 100%);
+    border-radius: 8px;
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  :global(.dark) .book-container {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .book-pages {
+    padding: 2rem;
+  }
+  
+  .book-page {
+    background: #fffef9;
+    border-radius: 4px;
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      inset 0 0 40px rgba(0, 0, 0, 0.02);
+    min-height: 500px;
+  }
+  
+  :global(.dark) .book-page {
+    background: #262626;
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.2),
+      inset 0 0 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .page-content {
+    padding: 3rem 2.5rem;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  
+  .chapter-content {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.8;
+  }
+  
+  .chapter-content :global(h1) {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #2c3e50;
+  }
+  
+  :global(.dark) .chapter-content :global(h1) {
+    color: #e0e0e0;
+  }
+  
+  .chapter-content :global(h2) {
+    font-size: 1.4rem;
+    margin: 2rem 0 1rem;
+    color: #34495e;
+  }
+  
+  :global(.dark) .chapter-content :global(h2) {
+    color: #c0c0c0;
+  }
+  
+  .chapter-content :global(p) {
+    margin-bottom: 1.2rem;
+    text-align: justify;
+    font-size: 1.05rem;
+    color: #333;
+  }
+  
+  :global(.dark) .chapter-content :global(p) {
+    color: #d0d0d0;
+  }
+  
+  .chapter-content :global(ul) {
+    margin-bottom: 1.2rem;
+    padding-left: 1.5rem;
+  }
+  
+  .chapter-content :global(li) {
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+    color: #333;
+  }
+  
+  :global(.dark) .chapter-content :global(li) {
+    color: #d0d0d0;
+  }
+  
+  .chapter-content :global(strong) {
+    color: #2c3e50;
+  }
+  
+  :global(.dark) .chapter-content :global(strong) {
+    color: #f0f0f0;
+  }
+  
+  .chapter-content :global(hr) {
+    margin: 2rem 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  
+  :global(.dark) .chapter-content :global(hr) {
+    border-top-color: #444;
+  }
+  
+  .chapter-content :global(em) {
+    font-style: italic;
+    color: #555;
+  }
+  
+  :global(.dark) .chapter-content :global(em) {
+    color: #aaa;
+  }
+  
+  .book-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  :global(.dark) .book-navigation {
+    background: rgba(30, 30, 30, 0.8);
+    border-top-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, var(--accent-one) 0%, var(--accent-two) 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  
+  .nav-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  .chapter-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .chapter-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #2c3e50;
+  }
+  
+  :global(.dark) .chapter-title {
+    color: #e0e0e0;
+  }
+  
+  .progress-bar {
+    width: 200px;
+    max-width: 100%;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  
+  :global(.dark) .progress-bar {
+    background: #444;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-one) 0%, var(--accent-two) 100%);
+    transition: width 0.3s ease;
+    width: 25%;
+  }
+  
+  .toc-toggle {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  
+  :global(.dark) .toc-toggle {
+    background: #333;
+    color: #fff;
+  }
+  
+  .toc-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .table-of-contents {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 280px;
+    max-height: 100%;
+    background: white;
+    border-radius: 8px 0 0 8px;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    z-index: 20;
+  }
+  
+  :global(.dark) .table-of-contents {
+    background: #2a2a2a;
+  }
+  
+  .toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    background: white;
+  }
+  
+  :global(.dark) .toc-header {
+    background: #2a2a2a;
+    border-bottom-color: #444;
+  }
+  
+  .toc-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #2c3e50;
+  }
+  
+  :global(.dark) .toc-header h3 {
+    color: #e0e0e0;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+    color: #666;
+  }
+  
+  :global(.dark) .close-btn {
+    color: #aaa;
+  }
+  
+  .close-btn:hover {
+    background: #f0f0f0;
+  }
+  
+  :global(.dark) .close-btn:hover {
+    background: #444;
+  }
+  
+  .toc-list {
+    padding: 0.75rem;
+  }
+  
+  .toc-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+    text-align: left;
+  }
+  
+  .toc-item:hover {
+    background: #f8f9fa;
+  }
+  
+  :global(.dark) .toc-item:hover {
+    background: #333;
+  }
+  
+  .toc-item.active {
+    background: linear-gradient(135deg, rgba(var(--accent-one-rgb), 0.1) 0%, rgba(var(--accent-two-rgb), 0.1) 100%);
+    border-left: 3px solid var(--accent-one);
+  }
+  
+  .toc-chapter-number {
+    font-size: 0.75rem;
+    color: var(--accent-one);
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+  
+  .toc-chapter-title {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #2c3e50;
+  }
+  
+  :global(.dark) .toc-chapter-title {
+    color: #e0e0e0;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .book-reader-wrapper {
+      padding: 1rem;
+    }
+    
+    .book-pages {
+      padding: 1rem;
+    }
+    
+    .page-content {
+      padding: 1.5rem 1rem;
+    }
+    
+    .book-navigation {
+      flex-wrap: wrap;
+      padding: 1rem;
+      gap: 0.75rem;
+    }
+    
+    .chapter-info {
+      order: -1;
+      width: 100%;
+    }
+    
+    .nav-btn {
+      flex: 1;
+      justify-content: center;
+    }
+    
+    .table-of-contents {
+      width: 100%;
+      border-radius: 8px;
+    }
+    
+    .chapter-content :global(h1) {
+      font-size: 1.5rem;
+    }
+    
+    .chapter-content :global(h2) {
+      font-size: 1.2rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const chapterDataElement = document.getElementById('chapter-data');
+    const chapters = chapterDataElement ? JSON.parse(chapterDataElement.textContent || '[]') : [];
+    
+    let currentChapter = 0;
+    
+    const prevBtn = document.getElementById('prev-chapter');
+    const nextBtn = document.getElementById('next-chapter');
+    const tocToggle = document.getElementById('toc-toggle');
+    const closeToc = document.getElementById('close-toc');
+    const toc = document.getElementById('table-of-contents');
+    const tocItems = document.querySelectorAll('.toc-item');
+    const chapterTitle = document.getElementById('current-chapter-title');
+    const progressFill = document.getElementById('progress-fill');
+    const chapterSections = document.querySelectorAll('.chapter-section');
+    
+    function showChapter(index: number) {
+      if (index < 0 || index >= chapters.length) return;
+      
+      currentChapter = index;
+      
+      // Hide all chapters, show current
+      chapterSections.forEach((section, i) => {
+        (section as HTMLElement).style.display = i === index ? 'block' : 'none';
+      });
+      
+      // Update navigation
+      if (prevBtn) prevBtn.disabled = index === 0;
+      if (nextBtn) nextBtn.disabled = index === chapters.length - 1;
+      
+      // Update title
+      if (chapterTitle && chapters[index]) {
+        chapterTitle.textContent = `Chapter ${chapters[index].order}: ${chapters[index].title}`;
+      }
+      
+      // Update progress
+      if (progressFill) {
+        const progress = ((index + 1) / chapters.length) * 100;
+        progressFill.style.width = `${progress}%`;
+      }
+      
+      // Update TOC active state
+      tocItems.forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+      });
+      
+      // Scroll to top of content
+      const pageContent = document.querySelector('.page-content');
+      if (pageContent) pageContent.scrollTop = 0;
+      
+      // Save progress
+      localStorage.setItem('bookReaderProgress', JSON.stringify({ chapter: index }));
+    }
+    
+    // Navigation buttons
+    prevBtn?.addEventListener('click', () => showChapter(currentChapter - 1));
+    nextBtn?.addEventListener('click', () => showChapter(currentChapter + 1));
+    
+    // TOC toggle
+    tocToggle?.addEventListener('click', () => toc?.classList.toggle('hidden'));
+    closeToc?.addEventListener('click', () => toc?.classList.add('hidden'));
+    
+    // TOC items
+    tocItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const chapterIndex = parseInt((item as HTMLElement).dataset.chapter || '0');
+        showChapter(chapterIndex);
+        toc?.classList.add('hidden');
+      });
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') showChapter(currentChapter - 1);
+      if (e.key === 'ArrowRight') showChapter(currentChapter + 1);
+      if (e.key === 'Escape') toc?.classList.add('hidden');
+    });
+    
+    // Load saved progress
+    const savedProgress = localStorage.getItem('bookReaderProgress');
+    if (savedProgress) {
+      const { chapter } = JSON.parse(savedProgress);
+      if (chapter && chapter < chapters.length) {
+        showChapter(chapter);
+      }
+    }
+  });
+</script>
