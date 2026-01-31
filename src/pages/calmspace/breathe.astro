@@ -588,6 +588,16 @@ import { siteConfig } from "@/site.config";
 				// Reset timer display to full duration when stopping
 				remainingTime = selectedTimer * 60;
 				updateTimerDisplay();
+				
+				// Reset breathing text to initial state
+				breathingText.textContent = 'Inhale';
+				
+				// Clear any pending timeouts that might interfere with restart
+				// This prevents multiple breathing cycles from running simultaneously
+				const highestTimeoutId = setTimeout(() => {});
+				for (let i = highestTimeoutId; i >= 0; i--) {
+					clearTimeout(i);
+				}
 			}
 		});
 	</script>
