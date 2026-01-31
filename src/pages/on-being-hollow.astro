@@ -18,10 +18,10 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
 ---
 
 <PageLayout meta={{ title: "On Being Hollow" }}>
-  <div class="book-wrapper">
-    <div class="book-container">
+  <div class="relative max-w-4xl mx-auto p-4">
+    <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-xl overflow-hidden">
       <!-- Book Content -->
-      <div class="book-content">
+      <div class="bg-amber-50 dark:bg-gray-900 m-6 rounded-lg p-8 md:p-10 min-h-[60vh] max-h-[70vh] overflow-y-auto font-serif leading-relaxed">
         {chapters.length > 0 ? (
           chapters.map((chapter, index) => (
             <div 
@@ -33,37 +33,37 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
             </div>
           ))
         ) : (
-          <div class="no-content">
-            <h1>On Being Hollow</h1>
-            <p>Content is loading... If you see this message, the book chapters may not have loaded correctly.</p>
+          <div class="text-center p-12">
+            <h1 class="text-3xl font-bold text-center mb-6 text-slate-700 dark:text-slate-200">On Being Hollow</h1>
+            <p class="text-slate-600 dark:text-slate-400">Content is loading... If you see this message, the book chapters may not have loaded correctly.</p>
           </div>
         )}
       </div>
       
       <!-- Navigation -->
-      <div class="book-nav">
-        <button id="prev-btn" class="nav-button" disabled>
-          <span class="arrow">←</span> Previous
+      <div class="flex items-center justify-between p-4 md:p-6 bg-white/90 dark:bg-gray-800/90 border-t border-gray-200/10 dark:border-gray-700/10 gap-4">
+        <button id="prev-btn" class="relative flex items-center justify-center h-10 px-6 rounded-lg shadow-lg hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+          <span class="text-bgColor font-semibold text-sm">← Previous</span>
         </button>
         
-        <div class="chapter-indicator">
-          <span id="chapter-title">
+        <div class="flex-1 text-center">
+          <span id="chapter-title" class="block font-semibold text-sm text-slate-700 dark:text-slate-200 mb-2">
             {chapters.length > 0 ? chapters[0].title : 'Loading...'}
           </span>
-          <div class="progress-bar">
-            <div id="progress" class="progress-fill"></div>
+          <div class="w-full max-w-[200px] h-2 bg-gray-300 dark:bg-gray-600 rounded-full mx-auto overflow-hidden">
+            <div id="progress" class="h-full w-1/4 bg-gradient-to-r from-accent-one to-accent-two transition-all"></div>
           </div>
         </div>
         
-        <button id="next-btn" class="nav-button">
-          Next <span class="arrow">→</span>
+        <button id="next-btn" class="relative flex items-center justify-center h-10 px-6 rounded-lg shadow-lg hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two disabled:opacity-40 disabled:cursor-not-allowed">
+          <span class="text-bgColor font-semibold text-sm">Next →</span>
         </button>
       </div>
     </div>
     
     <!-- Back Button -->
-    <div class="back-button-container">
-      <a href="/" class="flex flex-wrap justify-center items-center gap-4 underline-offset-2 hover:text-accent hover:underline">
+    <div class="flex justify-center p-6">
+      <a href="/" class="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors font-medium text-sm">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
         </svg>
@@ -72,23 +72,25 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
     </div>
     
     <!-- Table of Contents Toggle -->
-    <button id="toc-btn" class="toc-button" title="Table of Contents">
+    <button id="toc-btn" class="absolute top-8 left-8 w-11 h-11 bg-white dark:bg-gray-800 border-none rounded-full text-xl cursor-pointer shadow-lg transition-all hover:scale-105 z-10 text-gray-700 dark:text-gray-300" title="Table of Contents">
       ☰
     </button>
     
     <!-- Table of Contents Panel -->
-    <div id="toc-panel" class="toc-panel hidden">
-      <div class="toc-header">
-        <h3>Contents</h3>
-        <button id="close-toc" class="close-btn">×</button>
+    <div id="toc-panel" class="absolute top-4 left-4 w-72 max-h-[calc(100%-2rem)] bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden z-20 hidden">
+      <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
+        <h3 class="m-0 text-sm font-semibold text-slate-700 dark:text-slate-200">Contents</h3>
+        <button id="close-toc" class="bg-none border-none text-xl cursor-pointer text-gray-500 dark:text-gray-400 p-0 leading-none hover:text-gray-700 dark:hover:text-gray-200">
+          ×
+        </button>
       </div>
-      <div class="toc-list">
+      <div class="p-2 max-h-[400px] overflow-y-auto">
         {chapters.map((chapter, index) => (
           <button 
-            class={`toc-item ${index === 0 ? 'active' : ''}`}
+            class={`flex flex-col w-full p-3 bg-none border-none rounded-lg text-left cursor-pointer transition-all mb-1 ${index === 0 ? 'bg-blue-50 dark:bg-blue-900/20 border-l-3 border-blue-500' : ''} hover:bg-gray-100 dark:hover:bg-gray-700 toc-item`}
             data-index={index}
           >
-            <span class="toc-title">{chapter.title}</span>
+            <span class="text-sm text-slate-700 dark:text-slate-200">{chapter.title}</span>
           </button>
         ))}
       </div>
@@ -138,11 +140,15 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
       
       // Update TOC active
       tocItems.forEach((item, i) => {
-        item.classList.toggle('active', i === index);
+        if (i === index) {
+          item.classList.add('bg-blue-50', 'dark:bg-blue-900/20', 'border-l-3', 'border-blue-500');
+        } else {
+          item.classList.remove('bg-blue-50', 'dark:bg-blue-900/20', 'border-l-3', 'border-blue-500');
+        }
       });
       
       // Scroll to top
-      const bookContent = document.querySelector('.book-content');
+      const bookContent = document.querySelector('.font-serif');
       if (bookContent) bookContent.scrollTop = 0;
       
       // Save progress
@@ -184,384 +190,36 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
 </script>
 
 <style>
-  .book-wrapper {
-    position: relative;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1rem;
+  /* Custom styles for markdown content that can't be easily replicated with Tailwind */
+  .chapter-content :global(h1) {
+    @apply text-3xl text-center mb-8 font-bold bg-gradient-to-r from-accent-two/85 via-accent-one/85 to-accent-two/85 dark:from-accent-two dark:via-accent-one dark:to-accent-two bg-clip-text text-transparent;
   }
   
-  .book-container {
-    background: linear-gradient(135deg, #f8f6f3 0%, #f0ebe3 100%);
-    border-radius: 12px;
-    box-shadow: 
-      0 10px 40px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+  .chapter-content :global(h2) {
+    @apply text-xl mt-8 mb-4 text-slate-600 dark:text-slate-300 font-semibold;
   }
   
-  :global(.dark) .book-container {
-    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+  .chapter-content :global(p) {
+    @apply mb-5 text-justify text-slate-600 dark:text-slate-400 leading-relaxed;
   }
   
-  .book-content {
-    background: #fffef9;
-    margin: 1.5rem;
-    border-radius: 8px;
-    padding: 2rem 2.5rem;
-    min-height: 60vh;
-    max-height: 70vh;
-    overflow-y: auto;
-    font-family: Georgia, 'Times New Roman', serif;
-    line-height: 1.8;
+  .chapter-content :global(ul) {
+    @apply pl-6 mb-5 space-y-2;
   }
   
-  :global(.dark) .book-content {
-    background: #262626;
+  .chapter-content :global(li) {
+    @apply text-slate-600 dark:text-slate-400 leading-relaxed;
   }
   
-  .book-content :global(h1) {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
+  .chapter-content :global(strong) {
+    @apply text-slate-700 dark:text-slate-200 font-semibold;
   }
   
-  :global(.dark) .book-content :global(h1) {
-    color: #e0e0e0;
+  .chapter-content :global(hr) {
+    @apply my-8 border-none border-t border-gray-300 dark:border-gray-600;
   }
   
-  .book-content :global(h2) {
-    font-size: 1.4rem;
-    margin: 2rem 0 1rem;
-    color: #34495e;
-  }
-  
-  :global(.dark) .book-content :global(h2) {
-    color: #c0c0c0;
-  }
-  
-  .book-content :global(p) {
-    margin-bottom: 1.2rem;
-    text-align: justify;
-    color: #333;
-  }
-  
-  :global(.dark) .book-content :global(p) {
-    color: #d0d0d0;
-  }
-  
-  .book-content :global(ul) {
-    padding-left: 1.5rem;
-    margin-bottom: 1.2rem;
-  }
-  
-  .book-content :global(li) {
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-  
-  :global(.dark) .book-content :global(li) {
-    color: #d0d0d0;
-  }
-  
-  .book-content :global(strong) {
-    color: #2c3e50;
-  }
-  
-  :global(.dark) .book-content :global(strong) {
-    color: #f0f0f0;
-  }
-  
-  .book-content :global(hr) {
-    margin: 2rem 0;
-    border: none;
-    border-top: 1px solid #ddd;
-  }
-  
-  :global(.dark) .book-content :global(hr) {
-    border-top-color: #444;
-  }
-  
-  .book-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-    background: rgba(255, 255, 255, 0.9);
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    gap: 1rem;
-  }
-  
-  :global(.dark) .book-nav {
-    background: rgba(30, 30, 30, 0.9);
-    border-top-color: rgba(255, 255, 255, 0.05);
-  }
-  
-  .nav-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
-    background: linear-gradient(135deg, var(--accent-one) 0%, var(--accent-two) 100%);
-    color: black !important;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-  }
-  
-  .nav-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .nav-button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-  
-  .arrow {
-    font-size: 1.1rem;
-  }
-  
-  .back-button-container {
-    display: flex;
-    justify-content: center;
-    padding: 1.5rem;
-  }
-  
-  .back-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
-    color: #666;
-    text-decoration: none;
-    border-radius: 25px;
-    transition: all 0.2s ease;
-    font-weight: 500;
-    font-size: 0.9rem;
-  }
-  
-  :global(.dark) .back-button {
-    color: rgba(255, 255, 255, 0.6);
-  }
-  
-  .back-button:hover {
-    color: #333;
-    background: rgba(0, 0, 0, 0.05);
-  }
-  
-  :global(.dark) .back-button:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.05);
-  }
-  
-  .chapter-indicator {
-    flex: 1;
-    text-align: center;
-  }
-  
-  #chapter-title {
-    display: block;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-  
-  :global(.dark) #chapter-title {
-    color: #e0e0e0;
-  }
-  
-  .progress-bar {
-    width: 100%;
-    max-width: 200px;
-    height: 4px;
-    background: #e0e0e0;
-    border-radius: 2px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-  
-  :global(.dark) .progress-bar {
-    background: #444;
-  }
-  
-  .progress-fill {
-    height: 100%;
-    width: 25%;
-    background: linear-gradient(90deg, var(--accent-one), var(--accent-two));
-    transition: width 0.3s ease;
-  }
-  
-  .toc-button {
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
-    width: 44px;
-    height: 44px;
-    background: white;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-    z-index: 10;
-    color: #333;
-  }
-  
-  :global(.dark) .toc-button {
-    background: #333;
-    color: #fff;
-  }
-  
-  .toc-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  }
-  
-  .toc-panel {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    width: 280px;
-    max-height: calc(100% - 2rem);
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    z-index: 20;
-  }
-  
-  :global(.dark) .toc-panel {
-    background: #2a2a2a;
-  }
-  
-  .toc-panel.hidden {
-    display: none;
-  }
-  
-  .toc-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid #eee;
-  }
-  
-  :global(.dark) .toc-header {
-    border-bottom-color: #444;
-  }
-  
-  .toc-header h3 {
-    margin: 0;
-    font-size: 1rem;
-    color: #2c3e50;
-  }
-  
-  :global(.dark) .toc-header h3 {
-    color: #e0e0e0;
-  }
-  
-  .close-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #666;
-    padding: 0;
-    line-height: 1;
-  }
-  
-  :global(.dark) .close-btn {
-    color: #aaa;
-  }
-  
-  .toc-list {
-    padding: 0.5rem;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  
-  .toc-item {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    background: none;
-    border: none;
-    border-radius: 8px;
-    text-align: left;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    margin-bottom: 0.25rem;
-  }
-  
-  .toc-item:hover {
-    background: #f5f5f5;
-  }
-  
-  :global(.dark) .toc-item:hover {
-    background: #333;
-  }
-  
-  .toc-item.active {
-    background: rgba(var(--accent-one-rgb), 0.1);
-    border-left: 3px solid var(--accent-one);
-  }
-  
-  .toc-title {
-    font-size: 0.9rem;
-    color: #2c3e50;
-  }
-  
-  :global(.dark) .toc-title {
-    color: #e0e0e0;
-  }
-  
-  .no-content {
-    text-align: center;
-    padding: 3rem;
-  }
-  
-  @media (max-width: 768px) {
-    .book-wrapper {
-      padding: 0.5rem;
-    }
-    
-    .book-content {
-      margin: 1rem;
-      padding: 1.5rem 1rem;
-    }
-    
-    .book-nav {
-      flex-wrap: wrap;
-      padding: 1rem;
-    }
-    
-    .chapter-indicator {
-      order: -1;
-      width: 100%;
-      margin-bottom: 0.5rem;
-    }
-    
-    .nav-button {
-      flex: 1;
-      justify-content: center;
-    }
-    
-    .toc-panel {
-      width: calc(100% - 2rem);
-    }
-    
-    .toc-button {
-      top: 1rem;
-      left: 1rem;
-    }
+  .chapter-content :global(blockquote) {
+    @apply border-l-4 border-accent-one pl-4 italic text-slate-600 dark:text-slate-400 my-6;
   }
 </style>
