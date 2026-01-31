@@ -54,34 +54,34 @@ import { siteConfig } from "@/site.config";
 						<main id="main" class="relative flex-grow mt-32 md:mt-[3.5rem]">
 							<div class="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-white/20">
 								<h2 class="text-xl font-bold text-center mb-6 bg-gradient-to-r from-accent-one to-accent-two bg-clip-text text-transparent">
-									Breathing Exercise
+									Breathe
 								</h2>
 								
 								<!-- Color Selection -->
-								<div class="mb-6 text-center">
-									<label class="block text-sm font-medium mb-3 text-foreground">Choose color:</label>
+								<div class="mb-6">
+									<label class="block text-sm font-medium mb-3 text-foreground text-center">Choose color:</label>
 									<div class="space-y-2">
-										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="cyan">
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer text-left" data-color="cyan">
 											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 flex-shrink-0"></div>
 											<span class="text-sm font-medium">Blue</span>
 										</button>
-										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="green">
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer text-left" data-color="green">
 											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex-shrink-0"></div>
 											<span class="text-sm font-medium">Green</span>
 										</button>
-										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="orange">
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer text-left" data-color="orange">
 											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 flex-shrink-0"></div>
 											<span class="text-sm font-medium">Orange</span>
 										</button>
-										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="purple">
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer text-left" data-color="purple">
 											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex-shrink-0"></div>
 											<span class="text-sm font-medium">Purple</span>
 										</button>
-										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="yellow">
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer text-left" data-color="yellow">
 											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 flex-shrink-0"></div>
 											<span class="text-sm font-medium">Yellow</span>
 										</button>
-										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="pink">
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer text-left" data-color="pink">
 											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 flex-shrink-0"></div>
 											<span class="text-sm font-medium">Pink</span>
 										</button>
@@ -89,8 +89,8 @@ import { siteConfig } from "@/site.config";
 								</div>
 								
 								<!-- Timer Selection -->
-								<div class="mb-6 text-center">
-									<label class="block text-sm font-medium mb-3 text-foreground">Duration:</label>
+								<div class="mb-6">
+									<label class="block text-sm font-medium mb-3 text-foreground text-center">Duration:</label>
 									<div class="grid grid-cols-2 gap-3">
 										<button type="button" class="timer-btn px-4 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-accent-one transition-colors text-sm cursor-pointer" data-timer="1">1 min</button>
 										<button type="button" class="timer-btn px-4 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-accent-one transition-colors text-sm cursor-pointer" data-timer="3">3 min</button>
@@ -535,7 +535,7 @@ import { siteConfig } from "@/site.config";
 						breathingText.textContent = 'Exhale';
 						setTimeout(switchPhase, 5000); // 5 second exhale
 					} else {
-						// Switch to inhale (3 seconds)
+						// Switch to inhale (3.5 seconds)
 						breathingCircle.classList.remove('breathing-exhale');
 						breathingCircle.classList.add('breathing-inhale');
 						breathingText.textContent = 'Inhale';
@@ -545,8 +545,8 @@ import { siteConfig } from "@/site.config";
 					isInhaling = !isInhaling;
 				}
 				
-				// Start the cycle with 3 second inhale
-				setTimeout(switchPhase, 3000);
+				// Start the cycle with 3.5 second inhale
+				setTimeout(switchPhase, 3500);
 			}
 
 			function startTimer() {
