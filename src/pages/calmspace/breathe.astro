@@ -138,6 +138,13 @@ import { siteConfig } from "@/site.config";
 				</div>
 			</div>
 			
+			<!-- Countdown Display - Very Center (shown during countdown) -->
+			<div id="countdown-display" class="hidden absolute inset-0 flex items-center justify-center">
+				<div id="countdown-number" class="text-6xl font-bold text-white animate-pulse">
+					3
+				</div>
+			</div>
+			
 			<!-- Back Button - Very Bottom Center -->
 			<div class="absolute bottom-4 left-1/2 -translate-x-1/2">
 				<button type="button" id="back-to-setup" class="flex items-center gap-2 text-white/60 hover:text-white transition-colors cursor-pointer">
@@ -356,6 +363,8 @@ import { siteConfig } from "@/site.config";
 			const setupBackground = document.getElementById('setup-background');
 			const breathingBackground = document.getElementById('breathing-background');
 			const bgGradient = document.getElementById('bg-gradient');
+			const countdownDisplay = document.getElementById('countdown-display');
+			const countdownNumber = document.getElementById('countdown-number');
 
 			// Color selection
 			document.querySelectorAll('.color-btn').forEach(btn => {
@@ -401,10 +410,39 @@ import { siteConfig } from "@/site.config";
 			}
 
 			function startBreathing() {
+				// Reset timer to full duration
 				remainingTime = selectedTimer * 60;
+				updateTimerDisplay(); // Show full time immediately
 				showBreathingInterface();
-				startBreathingCycle();
-				startTimer();
+				startCountdown();
+			}
+
+			function startCountdown() {
+				let countdown = 3;
+				const countdownDisplay = document.getElementById('countdown-display');
+				const countdownNumber = document.getElementById('countdown-number');
+				const breathingText = document.getElementById('breathing-text');
+				
+				// Hide breathing text and show countdown
+				breathingText.parentElement.classList.add('hidden');
+				countdownDisplay.classList.remove('hidden');
+				countdownNumber.textContent = countdown;
+				
+				const countdownInterval = setInterval(() => {
+					countdown--;
+					
+					if (countdown > 0) {
+						countdownNumber.textContent = countdown;
+					} else {
+						// Countdown finished, start breathing
+						clearInterval(countdownInterval);
+						countdownDisplay.classList.add('hidden');
+						breathingText.parentElement.classList.remove('hidden');
+						startBreathingCycle();
+						// Start timer only after countdown is complete
+						startTimer();
+					}
+				}, 1000);
 			}
 
 			function showBreathingInterface() {
@@ -476,6 +514,10 @@ import { siteConfig } from "@/site.config";
 				setupModal.classList.remove('hidden');
 				breathingBackground.classList.add('hidden');
 				setupBackground.classList.remove('hidden');
+				
+				// Reset countdown display
+				countdownDisplay.classList.add('hidden');
+				breathingText.parentElement.classList.remove('hidden');
 			}
 
 			function startBreathingCycle() {
@@ -508,7 +550,8 @@ import { siteConfig } from "@/site.config";
 			}
 
 			function startTimer() {
-				updateTimerDisplay();
+				// Timer display is already showing full time from startBreathing()
+				// No need to call updateTimerDisplay() here again
 				
 				timerInterval = setInterval(() => {
 					remainingTime--;
@@ -539,6 +582,10 @@ import { siteConfig } from "@/site.config";
 				
 				// Reset circle
 				breathingCircle.classList.remove('breathing-inhale', 'breathing-exhale');
+				
+				// Reset timer display to full duration when stopping
+				remainingTime = selectedTimer * 60;
+				updateTimerDisplay();
 			}
 		});
 	</script>
