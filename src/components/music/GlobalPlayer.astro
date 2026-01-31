@@ -1,0 +1,289 @@
+---
+// GlobalPlayer.astro - Persistent bottom player bar for cross-page playback
+---
+
+<div id="global-player" data-astro-transition-persist="musicspace-player" class="fixed bottom-0 left-0 right-0 z-50 transform translate-y-full transition-transform duration-300" data-visible="false">
+  <div class="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-3">
+      <div class="flex items-center gap-4">
+        <!-- Track Info -->
+        <div class="flex items-center gap-3 min-w-0 flex-1">
+          <div id="player-artwork" class="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <p id="player-title" class="font-medium text-sm truncate text-gray-900 dark:text-white">No track selected</p>
+            <p id="player-artist" class="text-xs text-gray-500 dark:text-gray-400 truncate">Select a track to play</p>
+          </div>
+        </div>
+        
+        <!-- Center Controls -->
+        <div class="flex items-center gap-2">
+          <button id="player-prev" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Previous">
+            <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+            </svg>
+          </button>
+          
+          <button id="player-toggle" class="p-3 rounded-full bg-gradient-to-r from-accent-one to-accent-two text-white hover:brightness-110 transition-all shadow-lg" title="Play/Pause">
+            <svg id="player-play-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <svg id="player-pause-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+          </button>
+          
+          <button id="player-next" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Next">
+            <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="hidden md:flex items-center gap-2 flex-1 max-w-md">
+          <span id="player-current-time" class="text-xs text-gray-500 dark:text-gray-400 w-10 text-right">0:00</span>
+          <div class="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden cursor-pointer group" id="player-progress-container">
+            <div id="player-progress" class="h-full bg-gradient-to-r from-accent-one to-accent-two rounded-full transition-all" style="width: 0%"></div>
+          </div>
+          <span id="player-duration" class="text-xs text-gray-500 dark:text-gray-400 w-10">0:00</span>
+        </div>
+        
+        <!-- Right Controls -->
+        <div class="flex items-center gap-2">
+          <!-- Volume Control -->
+          <div class="flex items-center gap-2 group">
+            <button id="player-volume-btn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Volume">
+              <svg id="volume-icon" class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+              </svg>
+              <svg id="volume-mute-icon" class="w-5 h-5 text-gray-700 dark:text-gray-300 hidden" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+              </svg>
+            </button>
+            <input type="range" id="player-volume" min="0" max="100" value="70" class="w-20 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer accent-purple-500">
+          </div>
+          
+          <!-- Close Button -->
+          <button id="player-close" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Close player">
+            <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden audio element -->
+<audio id="global-audio" data-astro-transition-persist="musicspace-audio" preload="auto"></audio>
+
+<script>
+  import { getAudioEngine } from './AudioEngine.js';
+
+  function initMusicSpacePlayer() {
+    if (typeof window === 'undefined') return;
+    if (window.__musicspacePlayerInitialized) return;
+
+    const engine = getAudioEngine();
+    if (!engine) return;
+
+    // DOM Elements
+    const player = document.getElementById('global-player');
+    const title = document.getElementById('player-title');
+    const artist = document.getElementById('player-artist');
+    const toggleBtn = document.getElementById('player-toggle');
+    const playIcon = document.getElementById('player-play-icon');
+    const pauseIcon = document.getElementById('player-pause-icon');
+    const prevBtn = document.getElementById('player-prev');
+    const nextBtn = document.getElementById('player-next');
+    const progressContainer = document.getElementById('player-progress-container');
+    const progress = document.getElementById('player-progress');
+    const currentTime = document.getElementById('player-current-time');
+    const duration = document.getElementById('player-duration');
+    const volumeSlider = document.getElementById('player-volume');
+    const volumeBtn = document.getElementById('player-volume-btn');
+    const volumeIcon = document.getElementById('volume-icon');
+    const volumeMuteIcon = document.getElementById('volume-mute-icon');
+    const closeBtn = document.getElementById('player-close');
+
+    if (!player) return;
+
+    let previousVolume = 0.7;
+
+    function updateVolumeIcon(volume) {
+      if (volume === 0) {
+        volumeIcon?.classList.add('hidden');
+        volumeMuteIcon?.classList.remove('hidden');
+      } else {
+        volumeIcon?.classList.remove('hidden');
+        volumeMuteIcon?.classList.add('hidden');
+      }
+    }
+
+    // Update UI based on state
+    function updateUI(state) {
+      // Show/hide player
+      if (state.currentTrack) {
+        player.classList.remove('translate-y-full');
+        player.dataset.visible = 'true';
+      }
+
+      // Update track info
+      if (state.currentTrack) {
+        title.textContent = state.currentTrack.title || 'Unknown Track';
+        artist.textContent = state.currentTrack.subcategory || state.currentTrack.artist || 'StillSpace';
+      }
+
+      // Update play/pause icons
+      if (state.isPlaying) {
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+      } else {
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+      }
+
+      // Update progress
+      const progressPercent = state.duration ? (state.currentTime / state.duration) * 100 : 0;
+      progress.style.width = `${progressPercent}%`;
+      currentTime.textContent = engine.formatTime(state.currentTime);
+      duration.textContent = engine.formatTime(state.duration);
+
+      // Update volume
+      if (volumeSlider) volumeSlider.value = state.volume * 100;
+      updateVolumeIcon(state.volume);
+    }
+
+    engine.subscribe(updateUI);
+    updateUI(engine.getState());
+
+    toggleBtn?.addEventListener('click', () => engine.toggle());
+    prevBtn?.addEventListener('click', () => engine.previous());
+    nextBtn?.addEventListener('click', () => engine.next());
+
+    progressContainer?.addEventListener('click', (e) => {
+      const rect = progressContainer.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      const state = engine.getState();
+      if (state.duration) {
+        engine.seek(percent * state.duration);
+      }
+    });
+
+    volumeSlider?.addEventListener('input', (e) => {
+      const volume = parseInt(e.target.value) / 100;
+      engine.setVolume(volume);
+    });
+
+    volumeBtn?.addEventListener('click', () => {
+      const state = engine.getState();
+      if (state.volume > 0) {
+        previousVolume = state.volume;
+        engine.setVolume(0);
+      } else {
+        engine.setVolume(previousVolume);
+      }
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      engine.stop();
+      player.classList.add('translate-y-full');
+      player.dataset.visible = 'false';
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (player.dataset.visible !== 'true') return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      switch (e.code) {
+        case 'Space':
+          e.preventDefault();
+          engine.toggle();
+          break;
+        case 'ArrowLeft':
+          if (e.shiftKey) {
+            engine.previous();
+          } else {
+            const state = engine.getState();
+            engine.seek(state.currentTime - 10);
+          }
+          break;
+        case 'ArrowRight':
+          if (e.shiftKey) {
+            engine.next();
+          } else {
+            const state = engine.getState();
+            engine.seek(state.currentTime + 10);
+          }
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          {
+            const state = engine.getState();
+            engine.setVolume(Math.min(1, state.volume + 0.1));
+          }
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          {
+            const state = engine.getState();
+            engine.setVolume(Math.max(0, state.volume - 0.1));
+          }
+          break;
+        case 'KeyM':
+          {
+            const state = engine.getState();
+            if (state.volume > 0) {
+              previousVolume = state.volume;
+              engine.setVolume(0);
+            } else {
+              engine.setVolume(previousVolume);
+            }
+          }
+          break;
+      }
+    });
+
+    window.addEventListener('musicspace-show-player', () => {
+      player.classList.remove('translate-y-full');
+      player.dataset.visible = 'true';
+    });
+
+    window.__musicspacePlayerInitialized = true;
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    initMusicSpacePlayer();
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initMusicSpacePlayer();
+  });
+</script>
+
+<style>
+  #player-volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--accent-one), var(--accent-two));
+    cursor: pointer;
+  }
+  
+  #player-volume::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--accent-one), var(--accent-two));
+    cursor: pointer;
+    border: none;
+  }
+</style>

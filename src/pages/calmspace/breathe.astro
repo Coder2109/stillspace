@@ -4,6 +4,8 @@ import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
 import Header from "@/components/layout/Header.astro";
 import Footer from "@/components/layout/Footer.astro";
+import GlobalPlayer from "@/components/music/GlobalPlayer.astro";
+import { ViewTransitions } from "astro:transitions";
 import { siteConfig } from "@/site.config";
 ---
 
@@ -13,6 +15,7 @@ import { siteConfig } from "@/site.config";
 >
 	<head>
 		<BaseHead description="Breathing exercise for relaxation and mindfulness" title="Breathe - CalmSpace" />
+		<ViewTransitions />
 	</head>
 	<body class="min-w-4xl relative m-auto min-h-screen w-full max-w-6xl grow bg-bgColor">
 		<ThemeProvider />
@@ -156,6 +159,7 @@ import { siteConfig } from "@/site.config";
 			</div>
 		</div>
 		</div>
+		<GlobalPlayer />
 	</body>
 </html>
 
@@ -601,4 +605,3 @@ import { siteConfig } from "@/site.config";
 			}
 		});
 	</script>
-</PageLayout>
