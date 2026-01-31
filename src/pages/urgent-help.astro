@@ -6,58 +6,91 @@ import PageLayout from "@/layouts/Base.astro";
 	<section class="max-w-4xl mx-auto px-4 py-16">
 		<div class="prose prose-lg dark:prose-invert mx-auto">
 			<h1 class="text-4xl font-bold text-center mb-8 text-red-600 dark:text-red-400">
-				Get Urgent Help
+				Get urgent support from a crisis service
 			</h1>
 			
+			<p class="text-lg text-center mb-8">
+				If you need urgent support you can contact any of these services.
+			</p>
+			
 			<div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6 mb-8">
-				<p class="text-lg font-semibold text-red-800 dark:text-red-200">
+				<p class="font-semibold text-red-800 dark:text-red-200 mt-0">
 					<strong>If you are in immediate danger or having thoughts of harming yourself, please call emergency services right away.</strong>
 				</p>
 			</div>
 			
 			<div class="space-y-8">
-				<h2 class="text-2xl font-semibold">Emergency Services</h2>
-				<div class="grid md:grid-cols-2 gap-4">
-					<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-						<h3 class="font-semibold mb-2">Emergency - Call 911</h3>
-						<p class="text-sm">For immediate medical emergencies or if you're in danger</p>
-					</div>
-					<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-						<h3 class="font-semibold mb-2">988 Suicide & Crisis Lifeline</h3>
-						<p class="text-sm">Call or text 988 - Available 24/7</p>
-					</div>
+				<h2 class="text-2xl font-semibold">United Kingdom support options</h2>
+				
+				<div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+					<h3 class="font-semibold mb-2 mt-0">Childline</h3>
+					<p class="text-sm mb-4">Childline is a free, private and confidential service that you can access online and on the phone. They can provide help and support for people up to their 19th birthday.</p>
+					<a href="https://www.childline.org.uk/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-accent-one to-accent-two text-bgColor rounded-lg shadow hover:brightness-110 transition-all">
+						Visit website
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+						</svg>
+					</a>
 				</div>
 				
-				<h2 class="text-2xl font-semibold">Crisis Text Lines</h2>
-				<div class="grid md:grid-cols-2 gap-4">
-					<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-						<h3 class="font-semibold mb-2">Crisis Text Line</h3>
-						<p class="text-sm">Text HOME to 741741</p>
-						<p class="text-sm mt-1">Free, 24/7 support for those in crisis</p>
-					</div>
-					<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-						<h3 class="font-semibold mb-2">The Trevor Project</h3>
-						<p class="text-sm">1-866-488-7386</p>
-						<p class="text-sm mt-1">Support for LGBTQ youth in crisis</p>
-					</div>
+				<div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+					<h3 class="font-semibold mb-2 mt-0">Samaritans</h3>
+					<p class="text-sm mb-4">You can access confidential emotional support at any time from Samaritans either by calling 116 123 or emailing jo@samaritans.org</p>
+					<a href="https://www.samaritans.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-accent-one to-accent-two text-bgColor rounded-lg shadow hover:brightness-110 transition-all">
+						Visit website
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+						</svg>
+					</a>
 				</div>
 				
-				<h2 class="text-2xl font-semibold">Mental Health Resources</h2>
-				<div class="space-y-4">
-					<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-						<h3 class="font-semibold mb-2">National Alliance on Mental Illness (NAMI)</h3>
-						<p class="text-sm">1-800-950-NAMI (6264)</p>
-						<p class="text-sm mt-1">Information, resources, and support for mental health</p>
-					</div>
-					<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-						<h3 class="font-semibold mb-2">Substance Abuse and Mental Health Services Administration (SAMHSA)</h3>
-						<p class="text-sm">1-800-662-HELP (4357)</p>
-						<p class="text-sm mt-1">Treatment referral and information service</p>
-					</div>
+				<div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+					<h3 class="font-semibold mb-2 mt-0">Shout</h3>
+					<p class="text-sm mb-4">24/7 text service, free on all major mobile networks, for anyone in crisis anytime, anywhere. It's a place to go if you're struggling to cope and you need immediate help. Text 85258.</p>
+					<p class="text-sm mb-4 text-amber-600 dark:text-amber-400">Only available in mainland UK</p>
+					<a href="https://www.giveusashout.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-accent-one to-accent-two text-bgColor rounded-lg shadow hover:brightness-110 transition-all">
+						Visit website
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+						</svg>
+					</a>
 				</div>
 				
-				<h2 class="text-2xl font-semibold">When to Seek Help</h2>
-				<div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+				<div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+					<h3 class="font-semibold mb-2 mt-0">Police</h3>
+					<p class="text-sm mb-4">If you or somebody else is in danger, or it feels like a situation might get dangerous and you need support right away, click here to find out how to contact the police.</p>
+					<a href="https://www.gov.uk/contact-police" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-accent-one to-accent-two text-bgColor rounded-lg shadow hover:brightness-110 transition-all">
+						Visit website
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+						</svg>
+					</a>
+				</div>
+				
+				<div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+					<h3 class="font-semibold mb-2 mt-0">NHS Choices</h3>
+					<p class="text-sm mb-4">Mental health services are free on the NHS. To get urgent medical help, use the NHS 111 online service, or call 111 if you're unable to get help online. Only available in mainland UK. For life-threatening emergencies, call 999 for an ambulance</p>
+					<a href="https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-call-999-or-111/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-accent-one to-accent-two text-bgColor rounded-lg shadow hover:brightness-110 transition-all">
+						Visit website
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+						</svg>
+					</a>
+				</div>
+				
+				<div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+					<h3 class="font-semibold mb-2 mt-0">Report abuse</h3>
+					<p class="text-sm mb-4">CEOP help children stay safe online. If anybody acts inappropriately towards you or another child or young person online (such as sexual chat, or being asked to do something that makes you feel uncomfortable); you can report it here.</p>
+					<a href="https://www.ceop.police.uk/ceop-reporting/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-accent-one to-accent-two text-bgColor rounded-lg shadow hover:brightness-110 transition-all">
+						Visit website
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+						</svg>
+					</a>
+				</div>
+				
+				<div class="mt-8 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+					<h3 class="font-semibold mb-2 text-blue-800 dark:text-blue-200 mt-0">When to Seek Help:</h3>
 					<ul class="list-disc pl-6 space-y-2">
 						<li>If you're having thoughts of suicide or self-harm</li>
 						<li>If you're experiencing severe anxiety or panic attacks</li>
@@ -67,8 +100,8 @@ import PageLayout from "@/layouts/Base.astro";
 					</ul>
 				</div>
 				
-				<div class="mt-8 p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-					<h3 class="font-semibold mb-2 text-green-800 dark:text-green-200">Remember:</h3>
+				<div class="mt-8 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+					<h3 class="font-semibold mb-2 text-green-800 dark:text-green-200 mt-0">Remember:</h3>
 					<p class="text-sm">
 						You are not alone. Mental health crises are treatable, and there are people who want to help you. Reaching out is a sign of strength, not weakness. Your life matters, and there is hope for recovery.
 					</p>
