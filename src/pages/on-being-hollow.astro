@@ -48,7 +48,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
         
         <div class="chapter-indicator">
           <span id="chapter-title">
-            {chapters.length > 0 ? `Chapter ${chapters[0].order}: ${chapters[0].title}` : 'Loading...'}
+            {chapters.length > 0 ? chapters[0].title : 'Loading...'}
           </span>
           <div class="progress-bar">
             <div id="progress" class="progress-fill"></div>
@@ -63,7 +63,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
     
     <!-- Back Button -->
     <div class="back-button-container">
-      <a href="/" class="back-button">
+      <a href="/" class="flex flex-wrap justify-center items-center gap-4 underline-offset-2 hover:text-accent hover:underline">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
         </svg>
@@ -88,7 +88,6 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
             class={`toc-item ${index === 0 ? 'active' : ''}`}
             data-index={index}
           >
-            <span class="toc-num">Chapter {chapter.order}</span>
             <span class="toc-title">{chapter.title}</span>
           </button>
         ))}
@@ -128,7 +127,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
       
       // Update title
       if (chapterTitle && titles[index]) {
-        chapterTitle.textContent = `Chapter ${titles[index].order}: ${titles[index].title}`;
+        chapterTitle.textContent = titles[index].title;
       }
       
       // Update progress
@@ -305,7 +304,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
     gap: 0.5rem;
     padding: 0.6rem 1.2rem;
     background: linear-gradient(135deg, var(--accent-one) 0%, var(--accent-two) 100%);
-    color: white;
+    color: black !important;
     border: none;
     border-radius: 25px;
     cursor: pointer;
@@ -332,13 +331,6 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
     display: flex;
     justify-content: center;
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.9);
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-  }
-  
-  :global(.dark) .back-button-container {
-    background: rgba(30, 30, 30, 0.9);
-    border-top-color: rgba(255, 255, 255, 0.05);
   }
   
   .back-button {
@@ -355,7 +347,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
   }
   
   :global(.dark) .back-button {
-    color: #aaa;
+    color: rgba(255, 255, 255, 0.6);
   }
   
   .back-button:hover {
@@ -491,7 +483,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
   }
   
   .toc-list {
-    padding: 0.75rem;
+    padding: 0.5rem;
     max-height: 400px;
     overflow-y: auto;
   }
@@ -500,13 +492,14 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1rem;
     background: none;
     border: none;
     border-radius: 8px;
     text-align: left;
     cursor: pointer;
     transition: background 0.2s ease;
+    margin-bottom: 0.25rem;
   }
   
   .toc-item:hover {
@@ -522,16 +515,9 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
     border-left: 3px solid var(--accent-one);
   }
   
-  .toc-num {
-    font-size: 0.75rem;
-    color: var(--accent-one);
-    font-weight: 600;
-  }
-  
   .toc-title {
     font-size: 0.9rem;
     color: #2c3e50;
-    margin-top: 0.15rem;
   }
   
   :global(.dark) .toc-title {
