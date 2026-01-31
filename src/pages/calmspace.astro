@@ -1,0 +1,44 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+---
+
+<PageLayout meta={{ title: "CalmSpace" }}>
+	<section class="max-w-4xl mx-auto px-4 py-16">
+		<div class="text-center">
+			<h1 class="text-4xl font-bold mb-8 bg-gradient-to-r from-accent-one to-accent-two bg-clip-text text-transparent">
+				CalmSpace
+			</h1>
+			<p class="text-lg mb-16 text-muted-foreground">
+				Find your inner peace with breathing exercises and calming music.
+			</p>
+			
+			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6 md:mt-12">
+				<a
+					href="/calmspace/breathe/"
+					class="relative flex items-center justify-center h-14 w-56 px-12 rounded-lg shadow-lg hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two"
+				>
+					<span class="text-bgColor font-semibold">Breathe</span>
+				</a>
+				
+				<a
+					href="/calmspace/music/"
+					class="relative flex items-center justify-center h-14 w-56 px-12 rounded-lg shadow-lg hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two"
+				>
+					<span class="text-bgColor font-semibold">Music</span>
+				</a>
+			</div>
+			
+			<div class="mt-16">
+				<a
+					href="/"
+					class="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+				>
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+					</svg>
+					Back to Home
+				</a>
+			</div>
+		</div>
+	</section>
+</PageLayout>

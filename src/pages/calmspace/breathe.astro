@@ -1,0 +1,545 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+import SkipLink from "@/components/SkipLink.astro";
+import ThemeProvider from "@/components/ThemeProvider.astro";
+import Header from "@/components/layout/Header.astro";
+import Footer from "@/components/layout/Footer.astro";
+import { siteConfig } from "@/site.config";
+---
+
+<html
+	class="overflow-x-hidden grid scroll-smooth font-sans text-textColor text-xl md:text-base antialiased"
+	lang={siteConfig.lang}
+>
+	<head>
+		<BaseHead description="Breathing exercise for relaxation and mindfulness" title="Breathe - CalmSpace" />
+	</head>
+	<body class="min-w-4xl relative m-auto min-h-screen w-full max-w-6xl grow bg-bgColor">
+		<ThemeProvider />
+		<SkipLink />
+		<div id="app" class="min-h-screen relative overflow-hidden">
+		<!-- Simple background for setup page -->
+		<div id="setup-background" class="absolute inset-0 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-black"></div>
+		
+		<!-- Animated background (hidden initially, shown during breathing) -->
+		<div id="breathing-background" class="fixed inset-0 w-screen h-screen transition-all duration-1000 hidden z-50">
+			<div id="bg-gradient" class="absolute inset-0 bg-gradient-to-br from-cyan-900 via-cyan-800 to-black"></div>
+			<!-- Multiple smoke layers for impressive effect -->
+			<div class="smoke-layer-1 absolute inset-0"></div>
+			<div class="smoke-layer-2 absolute inset-0"></div>
+			<div class="smoke-layer-3 absolute inset-0"></div>
+			<div class="smoke-layer-4 absolute inset-0"></div>
+			<div class="smoke-layer-5 absolute inset-0"></div>
+			<div class="smoke-layer-6 absolute inset-0"></div>
+			<!-- Particle-like floating elements -->
+			<div class="particles absolute inset-0 overflow-hidden">
+				<div class="particle particle-1"></div>
+				<div class="particle particle-2"></div>
+				<div class="particle particle-3"></div>
+				<div class="particle particle-4"></div>
+				<div class="particle particle-5"></div>
+				<div class="particle particle-6"></div>
+				<div class="particle particle-7"></div>
+				<div class="particle particle-8"></div>
+			</div>
+		</div>
+
+		<!-- Setup Modal -->
+		<div id="setup-modal" class="relative z-10 flex items-center justify-center min-h-screen p-4">
+			<!-- Include header and footer for setup mode -->
+			<div class="relative flex min-h-screen w-full">
+				<div id="container" class="min-w-3xl relative m-auto max-w-4xl grow">
+					<div class="m-auto grid min-h-screen md:grid-rows-[auto_auto_1fr] px-4 md:px-8 md:pt-4">
+						<Header />
+						<main id="main" class="relative flex-grow mt-32 md:mt-[3.5rem]">
+							<div class="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-white/20">
+								<h2 class="text-xl font-bold text-center mb-6 bg-gradient-to-r from-accent-one to-accent-two bg-clip-text text-transparent">
+									Breathing Exercise
+								</h2>
+								
+								<!-- Color Selection -->
+								<div class="mb-6 text-center">
+									<label class="block text-sm font-medium mb-3 text-foreground">Choose color:</label>
+									<div class="space-y-2">
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="cyan">
+											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 flex-shrink-0"></div>
+											<span class="text-sm font-medium">Blue</span>
+										</button>
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="green">
+											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex-shrink-0"></div>
+											<span class="text-sm font-medium">Green</span>
+										</button>
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="orange">
+											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 flex-shrink-0"></div>
+											<span class="text-sm font-medium">Orange</span>
+										</button>
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="purple">
+											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex-shrink-0"></div>
+											<span class="text-sm font-medium">Purple</span>
+										</button>
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="yellow">
+											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 flex-shrink-0"></div>
+											<span class="text-sm font-medium">Yellow</span>
+										</button>
+										<button type="button" class="color-btn flex items-center justify-center gap-3 w-full p-3 rounded-lg border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer" data-color="pink">
+											<div class="w-8 h-8 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 flex-shrink-0"></div>
+											<span class="text-sm font-medium">Pink</span>
+										</button>
+									</div>
+								</div>
+								
+								<!-- Timer Selection -->
+								<div class="mb-6 text-center">
+									<label class="block text-sm font-medium mb-3 text-foreground">Duration:</label>
+									<div class="grid grid-cols-2 gap-3">
+										<button type="button" class="timer-btn px-4 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-accent-one transition-colors text-sm cursor-pointer" data-timer="1">1 min</button>
+										<button type="button" class="timer-btn px-4 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-accent-one transition-colors text-sm cursor-pointer" data-timer="3">3 min</button>
+										<button type="button" class="timer-btn px-4 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-accent-one transition-colors text-sm cursor-pointer" data-timer="5">5 min</button>
+										<button type="button" class="timer-btn px-4 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-accent-one transition-colors text-sm cursor-pointer" data-timer="10">10 min</button>
+									</div>
+								</div>
+								
+								<!-- Start Button -->
+								<button type="button" id="start-btn" class="w-full py-3 rounded-lg bg-gradient-to-r from-accent-one to-accent-two text-white font-semibold hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer" disabled>
+									Start
+								</button>
+								
+								<!-- Back Button -->
+								<div class="mt-4 text-center">
+									<a href="/calmspace/" class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+										← Back
+									</a>
+								</div>
+							</div>
+						</main>
+						<Footer />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Breathing Exercise Interface -->
+		<div id="breathing-interface" class="hidden fixed inset-0 w-screen h-screen z-50 flex flex-col items-center justify-center">
+			<!-- Timer Display -->
+			<div class="absolute top-8 right-8 text-2xl font-mono text-white/70">
+				<span id="timer-display">5:00</span>
+			</div>
+			
+			<!-- Breathing Circle -->
+			<div class="absolute inset-0 flex items-center justify-center">
+				<div id="breathing-circle" class="w-40 h-40 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 shadow-[0_0_60px_rgba(6,182,212,0.5)] flex items-center justify-center transition-transform duration-[2500ms] ease-in-out">
+				</div>
+			</div>
+			
+			<!-- Breathing Text - Very Center -->
+			<div class="absolute inset-0 flex items-center justify-center">
+				<div id="breathing-text" class="text-3xl font-bold text-white">
+					Inhale
+				</div>
+			</div>
+			
+			<!-- Back Button - Very Bottom Center -->
+			<div class="absolute bottom-4 left-1/2 -translate-x-1/2">
+				<button type="button" id="back-to-setup" class="flex items-center gap-2 text-white/60 hover:text-white transition-colors cursor-pointer">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+					</svg>
+					Back
+				</button>
+			</div>
+		</div>
+		</div>
+	</body>
+</html>
+
+	<style>
+		/* Smoke layers with flowing animations */
+		.smoke-layer-1 {
+			background: radial-gradient(ellipse 80% 60% at 20% 30%, rgba(6, 182, 212, 0.4) 0%, transparent 60%),
+						radial-gradient(ellipse 70% 50% at 80% 70%, rgba(6, 182, 212, 0.3) 0%, transparent 55%);
+			animation: smoke-drift-1 15s ease-in-out infinite;
+			filter: blur(40px);
+		}
+		
+		.smoke-layer-2 {
+			background: radial-gradient(ellipse 90% 70% at 60% 20%, rgba(6, 182, 212, 0.35) 0%, transparent 50%),
+						radial-gradient(ellipse 60% 80% at 30% 80%, rgba(6, 182, 212, 0.25) 0%, transparent 55%);
+			animation: smoke-drift-2 20s ease-in-out infinite;
+			filter: blur(50px);
+		}
+		
+		.smoke-layer-3 {
+			background: radial-gradient(ellipse 100% 80% at 40% 60%, rgba(6, 182, 212, 0.3) 0%, transparent 55%),
+						radial-gradient(ellipse 80% 60% at 70% 40%, rgba(6, 182, 212, 0.2) 0%, transparent 50%);
+			animation: smoke-drift-3 25s ease-in-out infinite;
+			filter: blur(60px);
+		}
+		
+		.smoke-layer-4 {
+			background: radial-gradient(ellipse 120% 90% at 10% 50%, rgba(6, 182, 212, 0.25) 0%, transparent 50%),
+						radial-gradient(ellipse 90% 100% at 90% 30%, rgba(6, 182, 212, 0.2) 0%, transparent 55%);
+			animation: smoke-drift-4 18s ease-in-out infinite;
+			filter: blur(45px);
+		}
+		
+		.smoke-layer-5 {
+			background: radial-gradient(ellipse 70% 120% at 50% 10%, rgba(6, 182, 212, 0.3) 0%, transparent 60%),
+						radial-gradient(ellipse 100% 70% at 50% 90%, rgba(6, 182, 212, 0.25) 0%, transparent 50%);
+			animation: smoke-drift-5 22s ease-in-out infinite;
+			filter: blur(55px);
+		}
+		
+		.smoke-layer-6 {
+			background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 40%);
+			animation: smoke-pulse 8s ease-in-out infinite;
+			filter: blur(80px);
+		}
+		
+		/* Floating particles */
+		.particle {
+			position: absolute;
+			width: 4px;
+			height: 4px;
+			background: rgba(6, 182, 212, 0.6);
+			border-radius: 50%;
+			filter: blur(1px);
+			box-shadow: 0 0 10px rgba(6, 182, 212, 0.8);
+		}
+		
+		.particle-1 { left: 10%; top: 20%; animation: particle-float-1 12s ease-in-out infinite; }
+		.particle-2 { left: 85%; top: 15%; animation: particle-float-2 15s ease-in-out infinite; }
+		.particle-3 { left: 20%; top: 70%; animation: particle-float-3 10s ease-in-out infinite; }
+		.particle-4 { left: 75%; top: 80%; animation: particle-float-4 14s ease-in-out infinite; }
+		.particle-5 { left: 50%; top: 30%; animation: particle-float-5 11s ease-in-out infinite; }
+		.particle-6 { left: 30%; top: 45%; animation: particle-float-6 13s ease-in-out infinite; }
+		.particle-7 { left: 65%; top: 55%; animation: particle-float-7 16s ease-in-out infinite; }
+		.particle-8 { left: 45%; top: 85%; animation: particle-float-8 9s ease-in-out infinite; }
+		
+		/* Smoke drift animations */
+		@keyframes smoke-drift-1 {
+			0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+			25% { transform: translate(50px, -30px) scale(1.1); opacity: 1; }
+			50% { transform: translate(20px, 40px) scale(0.95); opacity: 0.9; }
+			75% { transform: translate(-40px, 10px) scale(1.05); opacity: 0.85; }
+		}
+		
+		@keyframes smoke-drift-2 {
+			0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+			25% { transform: translate(-60px, 40px) scale(1.15); opacity: 0.9; }
+			50% { transform: translate(-20px, -50px) scale(0.9); opacity: 0.75; }
+			75% { transform: translate(50px, -20px) scale(1.1); opacity: 0.85; }
+		}
+		
+		@keyframes smoke-drift-3 {
+			0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.75; }
+			33% { transform: translate(70px, 50px) scale(1.2); opacity: 0.95; }
+			66% { transform: translate(-50px, -30px) scale(0.85); opacity: 0.8; }
+		}
+		
+		@keyframes smoke-drift-4 {
+			0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.65; }
+			50% { transform: translate(-80px, 60px) scale(1.25); opacity: 0.9; }
+		}
+		
+		@keyframes smoke-drift-5 {
+			0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+			25% { transform: translate(30px, 80px) scale(1.1); opacity: 0.85; }
+			50% { transform: translate(60px, 20px) scale(0.95); opacity: 0.75; }
+			75% { transform: translate(-40px, 50px) scale(1.15); opacity: 0.9; }
+		}
+		
+		@keyframes smoke-pulse {
+			0%, 100% { transform: scale(1); opacity: 0.5; }
+			50% { transform: scale(1.5); opacity: 0.8; }
+		}
+		
+		/* Particle float animations */
+		@keyframes particle-float-1 {
+			0%, 100% { transform: translate(0, 0); opacity: 0.6; }
+			25% { transform: translate(30px, -50px); opacity: 1; }
+			50% { transform: translate(-20px, -80px); opacity: 0.4; }
+			75% { transform: translate(10px, -30px); opacity: 0.8; }
+		}
+		
+		@keyframes particle-float-2 {
+			0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+			33% { transform: translate(-40px, 60px); opacity: 0.9; }
+			66% { transform: translate(20px, 30px); opacity: 0.6; }
+		}
+		
+		@keyframes particle-float-3 {
+			0%, 100% { transform: translate(0, 0); opacity: 0.7; }
+			50% { transform: translate(50px, -70px); opacity: 1; }
+		}
+		
+		@keyframes particle-float-4 {
+			0%, 100% { transform: translate(0, 0); opacity: 0.6; }
+			25% { transform: translate(-30px, -40px); opacity: 0.9; }
+			50% { transform: translate(-60px, -80px); opacity: 0.5; }
+			75% { transform: translate(-20px, -50px); opacity: 0.8; }
+		}
+		
+		@keyframes particle-float-5 {
+			0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+			33% { transform: translate(40px, 50px); opacity: 1; }
+			66% { transform: translate(-30px, 20px); opacity: 0.7; }
+		}
+		
+		@keyframes particle-float-6 {
+			0%, 100% { transform: translate(0, 0); opacity: 0.6; }
+			50% { transform: translate(60px, -60px); opacity: 0.9; }
+		}
+		
+		@keyframes particle-float-7 {
+			0%, 100% { transform: translate(0, 0); opacity: 0.7; }
+			25% { transform: translate(-50px, 40px); opacity: 0.5; }
+			50% { transform: translate(-20px, 70px); opacity: 1; }
+			75% { transform: translate(30px, 30px); opacity: 0.6; }
+		}
+		
+		@keyframes particle-float-8 {
+			0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+			50% { transform: translate(40px, -100px); opacity: 0.9; }
+		}
+		
+		.breathing-inhale {
+			transform: scale(1.6);
+		}
+		
+		.breathing-exhale {
+			transform: scale(0.7);
+		}
+	</style>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			let selectedColor = '';
+			let selectedTimer = 0;
+			let breathingInterval = null;
+			let timerInterval = null;
+			let remainingTime = 0;
+
+			const colorClasses = {
+				cyan: 'from-cyan-400 to-cyan-600',
+				green: 'from-green-400 to-green-600',
+				orange: 'from-orange-400 to-orange-600',
+				purple: 'from-purple-400 to-purple-600',
+				yellow: 'from-yellow-400 to-yellow-600',
+				pink: 'from-pink-400 to-pink-600'
+			};
+
+			const bgColors = {
+				cyan: 'from-cyan-900 via-cyan-800 to-black',
+				green: 'from-green-900 via-green-800 to-black',
+				orange: 'from-orange-900 via-orange-800 to-black',
+				purple: 'from-purple-900 via-purple-800 to-black',
+				yellow: 'from-yellow-900 via-amber-800 to-black',
+				pink: 'from-pink-900 via-pink-800 to-black'
+			};
+
+			const smokeColors = {
+				cyan: '6, 182, 212',
+				green: '34, 197, 94',
+				orange: '251, 146, 60',
+				purple: '168, 85, 247',
+				yellow: '250, 204, 21',
+				pink: '236, 72, 153'
+			};
+
+			const setupModal = document.getElementById('setup-modal');
+			const breathingInterface = document.getElementById('breathing-interface');
+			const startBtn = document.getElementById('start-btn');
+			const backToSetupBtn = document.getElementById('back-to-setup');
+			const breathingCircle = document.getElementById('breathing-circle');
+			const breathingText = document.getElementById('breathing-text');
+			const timerDisplay = document.getElementById('timer-display');
+			const setupBackground = document.getElementById('setup-background');
+			const breathingBackground = document.getElementById('breathing-background');
+			const bgGradient = document.getElementById('bg-gradient');
+
+			// Color selection
+			document.querySelectorAll('.color-btn').forEach(btn => {
+				btn.addEventListener('click', () => {
+					selectedColor = btn.dataset.color;
+					document.querySelectorAll('.color-btn').forEach(b => {
+						b.classList.remove('border-accent-one', 'bg-accent-one/10');
+						b.classList.add('border-transparent');
+					});
+					btn.classList.remove('border-transparent');
+					btn.classList.add('border-accent-one', 'bg-accent-one/10');
+					checkReadyToStart();
+				});
+			});
+
+			// Timer selection
+			document.querySelectorAll('.timer-btn').forEach(btn => {
+				btn.addEventListener('click', () => {
+					selectedTimer = parseInt(btn.dataset.timer);
+					document.querySelectorAll('.timer-btn').forEach(b => {
+						b.classList.remove('border-accent-one', 'bg-accent-one/10');
+					});
+					btn.classList.add('border-accent-one', 'bg-accent-one/10');
+					checkReadyToStart();
+				});
+			});
+
+			// Start button
+			startBtn.addEventListener('click', () => {
+				if (selectedColor && selectedTimer) {
+					startBreathing();
+				}
+			});
+
+			// Back to setup button
+			backToSetupBtn.addEventListener('click', () => {
+				stopBreathing();
+				showSetup();
+			});
+
+			function checkReadyToStart() {
+				startBtn.disabled = !(selectedColor && selectedTimer);
+			}
+
+			function startBreathing() {
+				remainingTime = selectedTimer * 60;
+				showBreathingInterface();
+				startBreathingCycle();
+				startTimer();
+			}
+
+			function showBreathingInterface() {
+				setupModal.classList.add('hidden');
+				breathingInterface.classList.remove('hidden');
+				setupBackground.classList.add('hidden');
+				breathingBackground.classList.remove('hidden');
+				
+				// Update colors
+				bgGradient.className = `absolute inset-0 bg-gradient-to-br ${bgColors[selectedColor]}`;
+				
+				const glowColors = {
+					cyan: 'rgba(6, 182, 212, 0.5)',
+					green: 'rgba(34, 197, 94, 0.5)',
+					orange: 'rgba(251, 146, 60, 0.5)',
+					purple: 'rgba(168, 85, 247, 0.5)',
+					yellow: 'rgba(250, 204, 21, 0.5)',
+					pink: 'rgba(236, 72, 153, 0.5)'
+				};
+				
+				breathingCircle.className = `w-40 h-40 rounded-full bg-gradient-to-r ${colorClasses[selectedColor]} flex items-center justify-center transition-transform duration-[2500ms] ease-in-out`;
+				breathingCircle.style.boxShadow = `0 0 60px ${glowColors[selectedColor]}, 0 0 120px ${glowColors[selectedColor]}`;
+				
+				// Update smoke colors
+				updateSmokeColors(selectedColor);
+			}
+
+			function updateSmokeColors(color) {
+				const rgb = smokeColors[color];
+				
+				document.querySelector('.smoke-layer-1').style.background = `
+					radial-gradient(ellipse 80% 60% at 20% 30%, rgba(${rgb}, 0.4) 0%, transparent 60%),
+					radial-gradient(ellipse 70% 50% at 80% 70%, rgba(${rgb}, 0.3) 0%, transparent 55%)
+				`;
+				
+				document.querySelector('.smoke-layer-2').style.background = `
+					radial-gradient(ellipse 90% 70% at 60% 20%, rgba(${rgb}, 0.35) 0%, transparent 50%),
+					radial-gradient(ellipse 60% 80% at 30% 80%, rgba(${rgb}, 0.25) 0%, transparent 55%)
+				`;
+				
+				document.querySelector('.smoke-layer-3').style.background = `
+					radial-gradient(ellipse 100% 80% at 40% 60%, rgba(${rgb}, 0.3) 0%, transparent 55%),
+					radial-gradient(ellipse 80% 60% at 70% 40%, rgba(${rgb}, 0.2) 0%, transparent 50%)
+				`;
+				
+				document.querySelector('.smoke-layer-4').style.background = `
+					radial-gradient(ellipse 120% 90% at 10% 50%, rgba(${rgb}, 0.25) 0%, transparent 50%),
+					radial-gradient(ellipse 90% 100% at 90% 30%, rgba(${rgb}, 0.2) 0%, transparent 55%)
+				`;
+				
+				document.querySelector('.smoke-layer-5').style.background = `
+					radial-gradient(ellipse 70% 120% at 50% 10%, rgba(${rgb}, 0.3) 0%, transparent 60%),
+					radial-gradient(ellipse 100% 70% at 50% 90%, rgba(${rgb}, 0.25) 0%, transparent 50%)
+				`;
+				
+				document.querySelector('.smoke-layer-6').style.background = `
+					radial-gradient(circle at 50% 50%, rgba(${rgb}, 0.15) 0%, transparent 40%)
+				`;
+				
+				// Update particles
+				document.querySelectorAll('.particle').forEach(p => {
+					p.style.background = `rgba(${rgb}, 0.6)`;
+					p.style.boxShadow = `0 0 10px rgba(${rgb}, 0.8)`;
+				});
+			}
+
+			function showSetup() {
+				breathingInterface.classList.add('hidden');
+				setupModal.classList.remove('hidden');
+				breathingBackground.classList.add('hidden');
+				setupBackground.classList.remove('hidden');
+			}
+
+			function startBreathingCycle() {
+				let isInhaling = true;
+				
+				// Initial state - inhale
+				breathingCircle.classList.add('breathing-inhale');
+				breathingText.textContent = 'Inhale';
+				
+				function switchPhase() {
+					if (isInhaling) {
+						// Switch to exhale (5 seconds)
+						breathingCircle.classList.remove('breathing-inhale');
+						breathingCircle.classList.add('breathing-exhale');
+						breathingText.textContent = 'Exhale';
+						setTimeout(switchPhase, 5000); // 5 second exhale
+					} else {
+						// Switch to inhale (3 seconds)
+						breathingCircle.classList.remove('breathing-exhale');
+						breathingCircle.classList.add('breathing-inhale');
+						breathingText.textContent = 'Inhale';
+						setTimeout(switchPhase, 3000); // 3 second inhale
+					}
+					
+					isInhaling = !isInhaling;
+				}
+				
+				// Start the cycle with 3 second inhale
+				setTimeout(switchPhase, 3000);
+			}
+
+			function startTimer() {
+				updateTimerDisplay();
+				
+				timerInterval = setInterval(() => {
+					remainingTime--;
+					updateTimerDisplay();
+					
+					if (remainingTime <= 0) {
+						stopBreathing();
+						showSetup();
+					}
+				}, 1000);
+			}
+
+			function updateTimerDisplay() {
+				const minutes = Math.floor(remainingTime / 60);
+				const seconds = remainingTime % 60;
+				timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+			}
+
+			function stopBreathing() {
+				if (breathingInterval) {
+					clearInterval(breathingInterval);
+					breathingInterval = null;
+				}
+				if (timerInterval) {
+					clearInterval(timerInterval);
+					timerInterval = null;
+				}
+				
+				// Reset circle
+				breathingCircle.classList.remove('breathing-inhale', 'breathing-exhale');
+			}
+		});
+	</script>
+</PageLayout>
