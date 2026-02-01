@@ -21,7 +21,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
   <div class="relative max-w-4xl mx-auto p-4">
     <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-900 dark:to-gray-900 rounded-xl shadow-xl overflow-hidden">
       <!-- Book Content -->
-      <div class="bg-amber-50 dark:bg-gray-900 m-6 rounded-lg p-8 md:p-10 h-[550px] overflow-y-auto font-serif leading-relaxed prose prose-lg prose-slate dark:prose-invert max-w-none">
+      <div class="bg-amber-50 dark:bg-gray-900 m-6 rounded-lg p-8 md:p-10 h-[550px] overflow-y-auto font-serif leading-relaxed prose prose-base prose-slate dark:prose-invert max-w-none">
         {chapters.length > 0 ? (
           chapters.map((chapter, index) => (
             <div 
@@ -99,11 +99,10 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
 </PageLayout>
 
 <script define:vars={{ totalChapters: chapters.length, chapterTitles: chapters.map(c => ({ order: c.order, title: c.title })) }}>
-  let currentChapter = 0;
-  const total = totalChapters;
-  const titles = chapterTitles;
-  
-  document.addEventListener('DOMContentLoaded', () => {
+  function initBookPage() {
+    let currentChapter = 0;
+    const total = totalChapters;
+    const titles = chapterTitles;
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const tocBtn = document.getElementById('toc-btn');
@@ -186,7 +185,10 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
         showChapter(idx);
       }
     }
-  });
+  }
+
+  document.addEventListener('DOMContentLoaded', initBookPage);
+  document.addEventListener('astro:page-load', initBookPage);
 </script>
 
 <style>

@@ -51,7 +51,7 @@ const meta = {
 
 <script>
 	// Wait for the content to fully load
-	document.addEventListener("DOMContentLoaded", () => {
+	function initNotesPage() {
 		const buttonsPanel = document.getElementById("buttons-panel");
 		
 		if (buttonsPanel) {
@@ -60,5 +60,8 @@ const meta = {
 		} else {
 			console.error("Element with ID 'buttons-panel' not found.");
 		}
-	});
+	}
+
+	document.addEventListener("DOMContentLoaded", initNotesPage);
+	document.addEventListener("astro:page-load", initNotesPage);
 </script>
