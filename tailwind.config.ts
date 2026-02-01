@@ -94,6 +94,7 @@ export default {
         "special-lightest": "var(--theme-special-lightest)",
         "special-lighter": "var(--theme-special-lighter)",
         "special-light": "var(--theme-special-light)",
+        "special-dark": "rgb(204, 42, 66)",
       },
       fontFamily: {
         // Add any custom fonts here

@@ -1,75 +1,212 @@
 ---
-title: "Creating Sustainable Meaning"
+title: "The Fall"
 order: 4
-description: "Building lasting practices and finding meaning in everyday life"
+description: ""
 ---
 
-# Creating Sustainable Meaning
+# The Fall
 
-Healing from hollowness isn't about reaching a destination where you never feel empty again. It's about building a life that has enough meaning, connection, and presence to sustain you through the inevitable periods of disconnection and difficulty. This chapter explores how to create sustainable practices and sources of meaning that will support you long-term.
 
-## Beyond Quick Fixes
+There was a moment, just before, where everything stood still.\
+I was weightless.\
+Not falling. Not floating.\
+Just… held.\
+Held by a force that didn’t exist.
 
-In our culture of instant gratification, we're conditioned to seek quick fixes for emotional pain. We want the five-step plan, the magic pill, the revolutionary technique that will solve everything. But sustainable meaning isn't built through quick fixes—it's built through consistent, intentional choices over time.
+Then a sound.\
+A low hum.\
+Like an old fluorescent ceiling light. Growing. Slowly. Louder.
 
-Think of it like building a house. Quick fixes are like setting up a tent—they provide temporary shelter, but they won't protect you in a storm. Sustainable meaning is like building a solid house brick by brick. It takes longer, but it provides lasting shelter and security.
+I had never felt so alone.\
+So far removed from anything.\
+My mind was empty. Numb.
 
-## The Architecture of Meaning
+They said it wouldn’t hurt.\
+They were right.
 
-Meaning doesn't come from grand, dramatic events (though those can be part of it). Meaning comes from the architecture of our daily lives—the patterns, practices, and perspectives that shape how we experience each moment.
+But it wasn’t peace either.
 
-The architecture of meaning includes:
+—
 
-- **Attention**: What we choose to focus on
-- **Interpretation**: How we make sense of our experiences
-- **Action**: What we do with our time and energy
-- **Connection**: How we relate to ourselves and others
-- **Contribution**: How we serve something larger than ourselves
+As I was held,\
+I drifted backwards,\
+far, far back,
 
-Each of these elements can be consciously designed and cultivated to create a life that feels meaningful even when it's difficult.
+Memories that I had almost forgotten.
 
-## Cultivating Attention
+I thought over them...
 
-Our attention is one of our most precious resources. What we attend to grows in our awareness, while what we ignore fades away. When we're feeling hollow, our attention often gets stuck on what's wrong, what's missing, what's painful.
 
-Cultivating attention doesn't mean ignoring the difficult aspects of life. It means choosing where to place your focus with intention. You might practice:
+___
 
-- **Gratitude attention**: Each day, noticing three specific things that went well or that you're grateful for
-- **Beauty attention**: Actively looking for beauty in your environment, even in small things
-- **Growth attention**: Noticing evidence of your own resilience and learning
-- **Connection attention**: Paying attention to moments of connection, however brief
 
-## Deepening Connection
+Daybreak.
 
-While hollowness often involves isolation, sustainable meaning requires connection. But connection needs to be sustainable too—not draining or overwhelming, but nourishing and appropriate to your capacity.
+        The sun rose just enough\
+                to reveal a cloud.
 
-Sustainable connection might look like:
+        Upon the cloud\
+                sat a boy.
 
-- Having one or two deep relationships rather than many superficial ones
-- Setting boundaries that protect your energy and well-being
-- Connecting with people who accept you as you are, including your hollow moments
-- Contributing to communities that share your values
-- Practicing vulnerability with people who have earned your trust
+        As the sun reached higher,\
+                the boy felt warmth\
+                        on his shoulders.
 
-## Finding Your Contribution
+        He felt the light breeze\
+                on his face.\
+        He heard the birds sing\
+                all around him.
 
-We all need to feel like we matter, like our presence makes a difference. Contribution doesn't have to mean changing the world on a massive scale. It can be much smaller and more personal.
+        He hummed a melody.\
+                A simple one.\
+        Yet within it,\
+                everything lived.
 
-Your contribution might be:
+        He sat,\
+                and he hummed,\
+                        and he waited.
 
-- Being a good friend to the people in your life
-- Creating beauty in your corner of the world
-- Sharing your knowledge or experience with others
-- Taking care of animals or plants
-- Being kind to strangers in small ways
-- Doing your work with integrity and care
+        He didn’t worry about looking down,\
+                because he was sure\
+                        he would never have to fall.
 
-## Embracing the Full Spectrum
+        He was happy.\
+                It was perfect.
 
-Sustainable meaning doesn't mean eliminating hollowness or other difficult emotions. It means building a life that can hold the full spectrum of human experience—joy and sorrow, connection and isolation, meaning and confusion.
+                        For a moment.
 
-When you have sustainable meaning, hollowness becomes just one part of your experience rather than the entirety of it. You know that even when you feel empty, there are practices, connections, and purposes that will sustain you through the difficulty.
 
----
+___
 
-*This concludes our exploration of "On Being Hollow." Remember that healing is not linear, and it's okay to return to these chapters whenever you need reminders or support. You are not alone in this experience, and you have everything you need to move through hollowness into deeper connection with yourself and others.*
+
+Keep your head down, not that the sky was an interesting view,\
+The same old shade of grey leaned over me and laughed down.\
+I forced my feet forward: left, right, left, right.\
+The pavement blurred beneath me as I walked.
+
+Whispers of thoughts echoed round my head.\
+I felt completely surrounded by everyone and everything but…\
+Nothing ever reached me.\
+I continued moving forwards.
+
+I thought of change, from every moment I had lived before:\
+To be happier somehow, maybe by lifting my head, or speaking to a stranger.\
+But yet still, all the energy I could bring myself to find\
+Was used to perform the same routine: left, right, left, right.\
+And so this was how it was, and how it is, and how it will be.\
+The kid who keeps his head down was who I was supposed to be.
+
+
+___
+
+
+I tried to take a deep breath in\
+but I only sped up.\
+How could I find peace here?
+
+Alone in my room.\
+The walls closed in around me:\
+everythingwastooclosetogether.
+
+My head was pounding. \
+My chest tightened. \
+I struggled to form— \
+    —to form any kind of thoughts. 
+
+Everything was slowly fading: \
+the room, \
+     the light, \
+          myself. 
+
+Suddenly, everything was dark.
+
+I was on the floor. \
+I tried to get up,\
+     (but you never can, can you?) \
+I tried to look for any kind of hope,\
+     (but you will never find any)\
+I was all alone, \
+     (and you always will be).  
+
+“it’s alright,”\
+I tell myself.
+
+but  I  can  st ll   f el   m s lf   f ll ng  
+
+I am still here \
+I am still he \
+I am s ill \
+I a \
+I
+
+
+___
+
+
+There was a moment, just before,\
+where everything stood still.
+
+I was weightless.\
+Not falling. Not floating.\
+Just… held.\
+Held by a force that didn’t exist.
+
+Then a sound.\
+A low hum.\
+But familiar.\
+I listened.
+
+The same tune\
+once hummed by a boy\
+who sat upon a cloud.
+
+The boy sat in a sky of grey,\
+though only to those looking up from below.\
+From above, the whole world could be seen.\
+There was darkness in view – lots,\
+but there was also light.
+
+I think I finally realised this.
+
+Light will always be there,\
+_h i d d e n   i n   t h e   c r a c k s_,\
+in the spaces (                             ),\
+| on the other side of every wall |\
+˙ǝʌᴉʇɔǝdsɹǝd ʍǝu ɐ pǝǝu ʇsnɾ ʇɥƃᴉɯ no⅄
+
+Suddenly, I wasn’t held anymore.\
+My feet touched the ground.\
+I looked around.\
+I was home.
+
+The air was different.\
+There was a peace I hadn’t felt before.\
+I breathed in—\
+\
+\
+and out.
+
+Who can say if I’m better,\
+or healed?\
+Who can say if I have changed at all?\
+Maybe no one.\
+Maybe that’s fine.
+
+For I remember the fall.\
+I remember the boy on the cloud.\
+I remember the walk.\
+I remember the dark.
+
+And I will not forget.\
+Not anymore.
+
+Darkness will come again,\
+I’m learning to expect that.\
+But when it does,\
+I will try to meet it with whatever light I have.
+
+For the moment,\
+I am here.
+
+For the moment,\
+here is enough.
