@@ -96,7 +96,7 @@
               <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="45">45 min</button>
               <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="60">60 min</button>
               <hr class="my-1 border-gray-200 dark:border-gray-700">
-              <button id="sleep-timer-off" class="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-red-500 dark:text-red-400">Off</button>
+              <button id="sleep-timer-off" class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-700 dark:text-gray-300">Off</button>
             </div>
           </div>
           
@@ -253,30 +253,30 @@
 
       // Update sleep timer menu highlighting
       document.querySelectorAll('.sleep-timer-option').forEach(btn => {
-        const minutes = parseInt(btn.dataset.minutes);
-        // Reset all to default gray
+        // Reset all to default gray first
         btn.classList.remove('text-red-500', 'dark:text-red-400', 'text-accent-one', 'dark:text-accent-two');
         btn.classList.add('text-gray-700', 'dark:text-gray-300');
         
-        // Handle Off button special case
+        // Handle Off button
         if (btn.id === 'sleep-timer-off') {
           if (!state.sleepTimer) {
+            // Timer is off - make Off button red
             btn.classList.remove('text-gray-700', 'dark:text-gray-300');
             btn.classList.add('text-red-500', 'dark:text-red-400');
-          } else {
-            // Explicitly ensure Off button is gray when timer is active
-            btn.classList.remove('text-red-500', 'dark:text-red-400');
-            btn.classList.add('text-gray-700', 'dark:text-gray-300');
           }
-        } else if (state.sleepTimer) {
-          // Calculate remaining time and check if it matches this option
-          const remainingMs = state.sleepTimer - Date.now();
-          const remainingMinutes = Math.ceil(remainingMs / (60 * 1000));
-          
-          // Highlight if this is the closest option to the remaining time
-          if (Math.abs(remainingMinutes - minutes) < 1) {
-            btn.classList.remove('text-gray-700', 'dark:text-gray-300');
-            btn.classList.add('text-red-500', 'dark:text-accent-two');
+          // If timer is active, Off button stays gray (from reset above)
+        } else {
+          // Handle timer options
+          const minutes = parseInt(btn.dataset.minutes);
+          if (state.sleepTimer && !isNaN(minutes)) {
+            const remainingMs = state.sleepTimer - Date.now();
+            const remainingMinutes = Math.ceil(remainingMs / (60 * 1000));
+            
+            if (Math.abs(remainingMinutes - minutes) < 1) {
+              // This is the active timer - highlight it
+              btn.classList.remove('text-gray-700', 'dark:text-gray-300');
+              btn.classList.add('text-red-500', 'dark:text-accent-two');
+            }
           }
         }
       });
