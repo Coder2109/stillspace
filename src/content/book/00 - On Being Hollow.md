@@ -6,4 +6,4 @@ description: ""
 
 # On Being Hollow
 
-# Adam Smith
+Adam Smith

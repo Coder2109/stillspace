@@ -197,15 +197,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
     @apply text-3xl text-center mb-8 font-bold bg-gradient-to-r from-accent-two/85 via-accent-one/85 to-accent-two/85 dark:from-accent-two dark:via-accent-one dark:to-accent-two bg-clip-text text-transparent !important;
   }
   
-  .prose :global(h2) {
-    @apply text-xl mt-8 mb-4 font-semibold !important;
-  }
-  
-  .prose :global(strong) {
-    @apply font-semibold !important;
-  }
-  
-  .prose :global(blockquote) {
-    @apply border-l-4 border-accent-one pl-4 italic my-6 !important;
+  .prose :global(.chapter-section[data-chapter="0"] h1 + *) {
+    @apply text-center !important;
   }
 </style>
