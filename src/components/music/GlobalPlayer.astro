@@ -62,14 +62,21 @@
           </button>
           
           <!-- Repeat Button -->
-          <button id="player-repeat" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Repeat">
+          <button id="player-repeat" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative" title="Repeat">
             <svg id="repeat-icon" class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 24 24">
               <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
             </svg>
-            <svg id="repeat-one-icon" class="w-5 h-5 text-accent-one dark:text-accent-two hidden" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4zm-4-2v-6h2l-4-4-4 4h2v6h4z"/>
-            </svg>
           </button>
+          
+          <!-- Repeat Dropdown -->
+          <div id="repeat-dropdown" class="absolute bottom-full left-0 mb-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden">
+            <div class="p-2">
+              <button class="repeat-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-repeat="one">Song</button>
+              <button class="repeat-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-repeat="all">Library</button>
+              <hr class="my-1 border-gray-200 dark:border-gray-700">
+              <button class="repeat-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-red-500 dark:text-red-400" data-repeat="none">Off</button>
+            </div>
+          </div>
           
           <!-- Sleep Timer Button -->
           <button id="player-sleep" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Sleep Timer">
@@ -81,7 +88,10 @@
           <!-- Sleep Timer Dropdown -->
           <div id="sleep-timer-dropdown" class="absolute bottom-full right-0 mb-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden">
             <div class="p-2">
+              <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="5">5 min</button>
+              <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="10">10 min</button>
               <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="15">15 min</button>
+              <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="20">20 min</button>
               <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="30">30 min</button>
               <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="45">45 min</button>
               <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="60">60 min</button>
@@ -153,7 +163,6 @@
     const duration = document.getElementById('player-duration');
     const shuffleIcon = document.getElementById('shuffle-icon');
     const repeatIcon = document.getElementById('repeat-icon');
-    const repeatOneIcon = document.getElementById('repeat-one-icon');
     const sleepIcon = document.getElementById('sleep-icon');
     const volumeIcon = document.getElementById('volume-icon');
     const volumeMuteIcon = document.getElementById('volume-mute-icon');
@@ -213,21 +222,64 @@
       }
 
       // Update repeat button
-      repeatIcon.classList.add('hidden');
-      repeatOneIcon.classList.add('hidden');
-      if (state.repeat === 'all') {
-        repeatIcon.classList.remove('hidden');
-        repeatIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
-        repeatIcon.classList.add('text-accent-one', 'dark:text-accent-two');
-      } else if (state.repeat === 'one') {
-        repeatOneIcon.classList.remove('hidden');
-        repeatOneIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
-        repeatOneIcon.classList.add('text-accent-one', 'dark:text-accent-two');
-      } else {
-        repeatIcon.classList.remove('hidden');
+      if (state.repeat === 'none') {
         repeatIcon.classList.remove('text-accent-one', 'dark:text-accent-two');
         repeatIcon.classList.add('text-gray-400', 'dark:text-gray-500');
+      } else {
+        repeatIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
+        repeatIcon.classList.add('text-accent-one', 'dark:text-accent-two');
       }
+
+      // Update repeat menu highlighting
+      document.querySelectorAll('.repeat-option').forEach(btn => {
+        const mode = btn.dataset.repeat;
+        // Reset all to default gray
+        btn.classList.remove('text-red-500', 'dark:text-red-400', 'text-accent-one', 'dark:text-accent-two');
+        btn.classList.add('text-gray-700', 'dark:text-gray-300');
+        
+        // Handle Off button special case
+        if (mode === 'none') {
+          if (state.repeat === 'none') {
+            btn.classList.remove('text-gray-700', 'dark:text-gray-300');
+            btn.classList.add('text-red-500', 'dark:text-red-400');
+          }
+          // When repeat is active, Off button stays gray (already set above)
+        } else if (mode === state.repeat) {
+          // Highlight current active state
+          btn.classList.remove('text-gray-700', 'dark:text-gray-300');
+          btn.classList.add('text-red-500', 'dark:text-accent-two');
+        }
+      });
+
+      // Update sleep timer menu highlighting
+      document.querySelectorAll('.sleep-timer-option').forEach(btn => {
+        const minutes = parseInt(btn.dataset.minutes);
+        // Reset all to default gray
+        btn.classList.remove('text-red-500', 'dark:text-red-400', 'text-accent-one', 'dark:text-accent-two');
+        btn.classList.add('text-gray-700', 'dark:text-gray-300');
+        
+        // Handle Off button special case
+        if (btn.id === 'sleep-timer-off') {
+          if (!state.sleepTimer) {
+            btn.classList.remove('text-gray-700', 'dark:text-gray-300');
+            btn.classList.add('text-red-500', 'dark:text-red-400');
+          } else {
+            // Explicitly ensure Off button is gray when timer is active
+            btn.classList.remove('text-red-500', 'dark:text-red-400');
+            btn.classList.add('text-gray-700', 'dark:text-gray-300');
+          }
+        } else if (state.sleepTimer) {
+          // Calculate remaining time and check if it matches this option
+          const remainingMs = state.sleepTimer - Date.now();
+          const remainingMinutes = Math.ceil(remainingMs / (60 * 1000));
+          
+          // Highlight if this is the closest option to the remaining time
+          if (Math.abs(remainingMinutes - minutes) < 1) {
+            btn.classList.remove('text-gray-700', 'dark:text-gray-300');
+            btn.classList.add('text-red-500', 'dark:text-accent-two');
+          }
+        }
+      });
 
       // Update sleep timer icon
       if (state.sleepTimer) {
@@ -254,7 +306,10 @@
     shuffleBtn?.addEventListener('click', () => engine.toggleShuffle());
 
     // Repeat button
-    repeatBtn?.addEventListener('click', () => engine.toggleRepeat());
+    repeatBtn?.addEventListener('click', () => {
+      const dropdown = document.getElementById('repeat-dropdown');
+      dropdown.classList.toggle('hidden');
+    });
 
     progressContainer?.addEventListener('click', (e) => {
       const rect = progressContainer.getBoundingClientRect();
@@ -291,15 +346,19 @@
       engine.toggleShuffle();
     });
 
-    // Repeat button
-    repeatBtn?.addEventListener('click', () => {
-      engine.toggleRepeat();
-    });
-
     // Sleep timer button
     sleepBtn?.addEventListener('click', () => {
       const dropdown = document.getElementById('sleep-timer-dropdown');
       dropdown.classList.toggle('hidden');
+    });
+
+    // Repeat options
+    document.querySelectorAll('.repeat-option').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const repeatMode = e.target.dataset.repeat;
+        engine.setRepeatMode(repeatMode);
+        document.getElementById('repeat-dropdown').classList.add('hidden');
+      });
     });
 
     // Sleep timer options
@@ -317,12 +376,19 @@
       document.getElementById('sleep-timer-dropdown').classList.add('hidden');
     });
 
-    // Close dropdown when clicking outside
+    // Close dropdowns when clicking outside
     document.addEventListener('click', (e) => {
-      const dropdown = document.getElementById('sleep-timer-dropdown');
+      const sleepDropdown = document.getElementById('sleep-timer-dropdown');
+      const repeatDropdown = document.getElementById('repeat-dropdown');
       const sleepBtn = document.getElementById('player-sleep');
-      if (!sleepBtn.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.classList.add('hidden');
+      const repeatBtn = document.getElementById('player-repeat');
+      
+      if (!sleepBtn.contains(e.target) && !sleepDropdown.contains(e.target)) {
+        sleepDropdown.classList.add('hidden');
+      }
+      
+      if (!repeatBtn.contains(e.target) && !repeatDropdown.contains(e.target)) {
+        repeatDropdown.classList.add('hidden');
       }
     });
 

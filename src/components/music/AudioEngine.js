@@ -323,6 +323,14 @@ class AudioEngine {
     this.notifyListeners();
   }
   
+  setRepeatMode(mode) {
+    if (['none', 'all', 'one'].includes(mode)) {
+      this.state.repeat = mode;
+      this.saveState();
+      this.notifyListeners();
+    }
+  }
+  
   // Favorites
   toggleFavorite(track) {
     const index = this.state.favorites.findIndex(f => f.id === track.id);
