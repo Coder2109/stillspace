@@ -53,7 +53,43 @@
         </div>
         
         <!-- Right Controls -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 relative">
+          <!-- Shuffle Button -->
+          <button id="player-shuffle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Shuffle">
+            <svg id="shuffle-icon" class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+            </svg>
+          </button>
+          
+          <!-- Repeat Button -->
+          <button id="player-repeat" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Repeat">
+            <svg id="repeat-icon" class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+            </svg>
+            <svg id="repeat-one-icon" class="w-5 h-5 text-accent-one dark:text-accent-two hidden" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4zm-4-2v-6h2l-4-4-4 4h2v6h4z"/>
+            </svg>
+          </button>
+          
+          <!-- Sleep Timer Button -->
+          <button id="player-sleep" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Sleep Timer">
+            <svg id="sleep-icon" class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+            </svg>
+          </button>
+          
+          <!-- Sleep Timer Dropdown -->
+          <div id="sleep-timer-dropdown" class="absolute bottom-full right-0 mb-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden">
+            <div class="p-2">
+              <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="15">15 min</button>
+              <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="30">30 min</button>
+              <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="45">45 min</button>
+              <button class="sleep-timer-option w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded" data-minutes="60">60 min</button>
+              <hr class="my-1 border-gray-200 dark:border-gray-700">
+              <button id="sleep-timer-off" class="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-red-500 dark:text-red-400">Off</button>
+            </div>
+          </div>
+          
           <!-- Volume Control -->
           <div class="flex items-center gap-2 group">
             <button id="player-volume-btn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Volume">
@@ -90,26 +126,37 @@
     if (window.__musicspacePlayerInitialized) return;
 
     const engine = getAudioEngine();
-    if (!engine) return;
+    if (!engine) {
+      return;
+    }
 
     // DOM Elements
     const player = document.getElementById('global-player');
-    const title = document.getElementById('player-title');
-    const artist = document.getElementById('player-artist');
     const toggleBtn = document.getElementById('player-toggle');
-    const playIcon = document.getElementById('player-play-icon');
-    const pauseIcon = document.getElementById('player-pause-icon');
     const prevBtn = document.getElementById('player-prev');
     const nextBtn = document.getElementById('player-next');
+    const closeBtn = document.getElementById('player-close');
     const progressContainer = document.getElementById('player-progress-container');
+    const volumeSlider = document.getElementById('player-volume');
+    const volumeBtn = document.getElementById('player-volume-btn');
+    const shuffleBtn = document.getElementById('player-shuffle');
+    const repeatBtn = document.getElementById('player-repeat');
+    const sleepBtn = document.getElementById('player-sleep');
+    
+    // UI elements
+    const title = document.getElementById('player-title');
+    const artist = document.getElementById('player-artist');
+    const playIcon = document.getElementById('player-play-icon');
+    const pauseIcon = document.getElementById('player-pause-icon');
     const progress = document.getElementById('player-progress');
     const currentTime = document.getElementById('player-current-time');
     const duration = document.getElementById('player-duration');
-    const volumeSlider = document.getElementById('player-volume');
-    const volumeBtn = document.getElementById('player-volume-btn');
+    const shuffleIcon = document.getElementById('shuffle-icon');
+    const repeatIcon = document.getElementById('repeat-icon');
+    const repeatOneIcon = document.getElementById('repeat-one-icon');
+    const sleepIcon = document.getElementById('sleep-icon');
     const volumeIcon = document.getElementById('volume-icon');
     const volumeMuteIcon = document.getElementById('volume-mute-icon');
-    const closeBtn = document.getElementById('player-close');
 
     if (!player) return;
 
@@ -136,10 +183,10 @@
       // Update track info
       if (state.currentTrack) {
         title.textContent = state.currentTrack.title || 'Unknown Track';
-        artist.textContent = state.currentTrack.subcategory || state.currentTrack.artist || 'StillSpace';
+        artist.textContent = state.currentTrack.artist || 'Unknown Artist';
       }
 
-      // Update play/pause icons
+      // Update play/pause icon
       if (state.isPlaying) {
         playIcon.classList.add('hidden');
         pauseIcon.classList.remove('hidden');
@@ -149,10 +196,47 @@
       }
 
       // Update progress
-      const progressPercent = state.duration ? (state.currentTime / state.duration) * 100 : 0;
-      progress.style.width = `${progressPercent}%`;
-      currentTime.textContent = engine.formatTime(state.currentTime);
-      duration.textContent = engine.formatTime(state.duration);
+      if (state.duration > 0) {
+        const progressPercent = (state.currentTime / state.duration) * 100;
+        progress.style.width = `${progressPercent}%`;
+        currentTime.textContent = engine.formatTime(state.currentTime);
+        duration.textContent = engine.formatTime(state.duration);
+      }
+
+      // Update shuffle button
+      if (state.shuffle) {
+        shuffleIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
+        shuffleIcon.classList.add('text-accent-one', 'dark:text-accent-two');
+      } else {
+        shuffleIcon.classList.remove('text-accent-one', 'dark:text-accent-two');
+        shuffleIcon.classList.add('text-gray-400', 'dark:text-gray-500');
+      }
+
+      // Update repeat button
+      repeatIcon.classList.add('hidden');
+      repeatOneIcon.classList.add('hidden');
+      if (state.repeat === 'all') {
+        repeatIcon.classList.remove('hidden');
+        repeatIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
+        repeatIcon.classList.add('text-accent-one', 'dark:text-accent-two');
+      } else if (state.repeat === 'one') {
+        repeatOneIcon.classList.remove('hidden');
+        repeatOneIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
+        repeatOneIcon.classList.add('text-accent-one', 'dark:text-accent-two');
+      } else {
+        repeatIcon.classList.remove('hidden');
+        repeatIcon.classList.remove('text-accent-one', 'dark:text-accent-two');
+        repeatIcon.classList.add('text-gray-400', 'dark:text-gray-500');
+      }
+
+      // Update sleep timer icon
+      if (state.sleepTimer) {
+        sleepIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
+        sleepIcon.classList.add('text-accent-one', 'dark:text-accent-two');
+      } else {
+        sleepIcon.classList.remove('text-accent-one', 'dark:text-accent-two');
+        sleepIcon.classList.add('text-gray-400', 'dark:text-gray-500');
+      }
 
       // Update volume
       if (volumeSlider) volumeSlider.value = state.volume * 100;
@@ -165,6 +249,12 @@
     toggleBtn?.addEventListener('click', () => engine.toggle());
     prevBtn?.addEventListener('click', () => engine.previous());
     nextBtn?.addEventListener('click', () => engine.next());
+
+    // Shuffle button
+    shuffleBtn?.addEventListener('click', () => engine.toggleShuffle());
+
+    // Repeat button
+    repeatBtn?.addEventListener('click', () => engine.toggleRepeat());
 
     progressContainer?.addEventListener('click', (e) => {
       const rect = progressContainer.getBoundingClientRect();
@@ -194,6 +284,46 @@
       engine.stop();
       player.classList.add('translate-y-full');
       player.dataset.visible = 'false';
+    });
+
+    // Shuffle button
+    shuffleBtn?.addEventListener('click', () => {
+      engine.toggleShuffle();
+    });
+
+    // Repeat button
+    repeatBtn?.addEventListener('click', () => {
+      engine.toggleRepeat();
+    });
+
+    // Sleep timer button
+    sleepBtn?.addEventListener('click', () => {
+      const dropdown = document.getElementById('sleep-timer-dropdown');
+      dropdown.classList.toggle('hidden');
+    });
+
+    // Sleep timer options
+    document.querySelectorAll('.sleep-timer-option').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const minutes = parseInt(e.target.dataset.minutes);
+        engine.setSleepTimer(minutes);
+        document.getElementById('sleep-timer-dropdown').classList.add('hidden');
+      });
+    });
+
+    // Sleep timer off
+    document.getElementById('sleep-timer-off')?.addEventListener('click', () => {
+      engine.clearSleepTimer();
+      document.getElementById('sleep-timer-dropdown').classList.add('hidden');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      const dropdown = document.getElementById('sleep-timer-dropdown');
+      const sleepBtn = document.getElementById('player-sleep');
+      if (!sleepBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add('hidden');
+      }
     });
 
     // Keyboard shortcuts

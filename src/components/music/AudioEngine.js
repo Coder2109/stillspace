@@ -12,6 +12,8 @@ class AudioEngine {
     this.listeners = new Set();
     this.fadeInterval = null;
     this.sleepTimerTimeout = null;
+    this.shuffledPlaylist = [];
+    this.shuffleIndex = 0;
     
     this.init();
   }
@@ -143,19 +145,17 @@ class AudioEngine {
     }
     
     this.audio.volume = this.state.volume;
+    // Don't set isPlaying here - let the 'play' event handle it
     this.audio.play().catch(e => console.warn('Playback failed:', e));
-    this.state.isPlaying = true;
     this.saveState();
-    this.notifyListeners();
     this.dispatchGlobalEvent('musicspace-play', { track: this.state.currentTrack });
   }
   
   pause() {
     if (!this.audio) return;
     this.audio.pause();
-    this.state.isPlaying = false;
+    // Don't set isPlaying here - let the 'pause' event handle it
     this.saveState();
-    this.notifyListeners();
     this.dispatchGlobalEvent('musicspace-pause');
   }
   
@@ -198,6 +198,11 @@ class AudioEngine {
   playPlaylist(tracks, startIndex = 0) {
     this.state.playlist = tracks;
     this.state.currentIndex = startIndex;
+    
+    if (this.state.shuffle) {
+      this.generateShuffledPlaylist();
+    }
+    
     if (tracks.length > 0) {
       this.play(tracks[startIndex]);
     }
@@ -208,7 +213,17 @@ class AudioEngine {
     
     let nextIndex;
     if (this.state.shuffle) {
-      nextIndex = Math.floor(Math.random() * this.state.playlist.length);
+      // Use shuffled playlist
+      this.shuffleIndex = (this.shuffleIndex + 1) % this.shuffledPlaylist.length;
+      const nextTrack = this.shuffledPlaylist[this.shuffleIndex];
+      
+      // Find this track in the original playlist
+      nextIndex = this.state.playlist.findIndex(track => track.id === nextTrack.id);
+      
+      // Reshuffle if we've been through the entire shuffled playlist
+      if (this.shuffleIndex === 0) {
+        this.generateShuffledPlaylist();
+      }
     } else {
       nextIndex = (this.state.currentIndex + 1) % this.state.playlist.length;
     }
@@ -228,7 +243,12 @@ class AudioEngine {
     
     let prevIndex;
     if (this.state.shuffle) {
-      prevIndex = Math.floor(Math.random() * this.state.playlist.length);
+      // Use shuffled playlist
+      this.shuffleIndex = (this.shuffleIndex - 1 + this.shuffledPlaylist.length) % this.shuffledPlaylist.length;
+      const prevTrack = this.shuffledPlaylist[this.shuffleIndex];
+      
+      // Find this track in the original playlist
+      prevIndex = this.state.playlist.findIndex(track => track.id === prevTrack.id);
     } else {
       prevIndex = (this.state.currentIndex - 1 + this.state.playlist.length) % this.state.playlist.length;
     }
@@ -253,8 +273,46 @@ class AudioEngine {
   
   toggleShuffle() {
     this.state.shuffle = !this.state.shuffle;
+    
+    if (this.state.shuffle) {
+      this.generateShuffledPlaylist();
+    } else {
+      this.shuffledPlaylist = [];
+      this.shuffleIndex = 0;
+    }
+    
     this.saveState();
     this.notifyListeners();
+  }
+  
+  generateShuffledPlaylist() {
+    if (this.state.playlist.length === 0) return;
+    
+    // Create a copy of the current playlist
+    const playlistCopy = [...this.state.playlist];
+    
+    // Fisher-Yates shuffle algorithm
+    for (let i = playlistCopy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [playlistCopy[i], playlistCopy[j]] = [playlistCopy[j], playlistCopy[i]];
+    }
+    
+    // Ensure current track isn't first in shuffled order
+    const currentTrack = this.state.playlist[this.state.currentIndex];
+    if (playlistCopy[0].id === currentTrack.id && playlistCopy.length > 1) {
+      // Swap with another position
+      const swapIndex = Math.floor(Math.random() * (playlistCopy.length - 1)) + 1;
+      [playlistCopy[0], playlistCopy[swapIndex]] = [playlistCopy[swapIndex], playlistCopy[0]];
+    }
+    
+    this.shuffledPlaylist = playlistCopy;
+    this.shuffleIndex = 0;
+    
+    // Find current track in shuffled playlist
+    const currentIndexInShuffled = this.shuffledPlaylist.findIndex(track => track.id === currentTrack.id);
+    if (currentIndexInShuffled !== -1) {
+      this.shuffleIndex = currentIndexInShuffled;
+    }
   }
   
   toggleRepeat() {
