@@ -111,7 +111,6 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
     const chapterTitle = document.getElementById('chapter-title');
     const progress = document.getElementById('progress');
     const sections = document.querySelectorAll('.chapter-section');
-    const tocItems = document.querySelectorAll('.toc-item');
     
     function showChapter(index) {
       if (index < 0 || index >= total) return;
@@ -138,6 +137,7 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
       }
       
       // Update TOC active
+      const tocItems = document.querySelectorAll('.toc-item');
       tocItems.forEach((item, i) => {
         if (i === index) {
           item.classList.add('bg-blue-50', 'dark:bg-blue-900/20', 'border-l-3', 'border-blue-500');
@@ -162,6 +162,8 @@ const chapters = Object.entries(chapterFiles).map(([path, module]: [string, any]
     if (tocBtn) tocBtn.addEventListener('click', () => tocPanel && tocPanel.classList.toggle('hidden'));
     if (closeToc) closeToc.addEventListener('click', () => tocPanel && tocPanel.classList.add('hidden'));
     
+    // Get TOC items after DOM is ready
+    const tocItems = document.querySelectorAll('.toc-item');
     tocItems.forEach((item) => {
       item.addEventListener('click', () => {
         const idx = parseInt(item.getAttribute('data-index') || '0');
